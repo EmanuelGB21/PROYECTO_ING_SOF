@@ -1,0 +1,149 @@
+.contenido{
+    background-color: whitesmoke;
+}
+
+.carta-producto{
+    box-shadow: 7px 7px 7px 0px rgb(184, 184, 184);
+    transition-duration: 1s;
+}
+
+.carta-producto:hover{
+    box-shadow: 7px 7px 7px 0px dodgerblue;
+    transition-duration: 1s;
+}
+
+.ficha_propietario{
+    box-shadow: 7px 7px 7px 0px rgb(184, 184, 184);
+    transition-duration: 1s; 
+    width: 250px;
+}
+
+.ficha_propietario:hover{
+    box-shadow: 7px 7px 7px 0px rgb(255, 124, 30);
+    transition-duration: 1s;
+}
+
+.reportar-publicacion{
+    box-shadow: 7px 7px 7px 0px gray;
+    transition-duration: 1s;
+}  
+
+  .reportar-publicacion:hover{
+  box-shadow: 7px 7px 7px 0px red;
+  transition-duration: 1s;
+  color:red;
+  }
+
+  #tamaño_reportar_y_detalles_articulos{
+      max-width: 840px;
+  }
+
+
+  /* PARTE DE GALERIA */
+   .container.gallery-container {
+    background-color: #fff;
+    color: #35373a;
+    border-radius: 20px;
+    box-shadow: 7px 7px 7px 7px gray;
+}
+
+.gallery-container h2 {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Droid Sans', sans-serif;
+    font-weight: bold;
+    padding-top: 8px;
+}
+
+.tz-gallery {
+    padding: 20px;
+}
+
+.tz-gallery .lightbox img {
+    width: 100%;
+    margin-bottom: 30px;
+    transition: 0.2s ease-in-out;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+}
+
+
+.tz-gallery .lightbox img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+.tz-gallery img {
+    border-radius: 4px;
+}
+
+/* FIN CODIGO DE GALERIA */
+
+
+/* IMAGENES DE ARTICULOS ESTILO */
+
+.IMAGENES{
+    background-repeat: no-repeat;
+    background-size: cover;
+    outline: none;
+    overflow: hidden;
+    transition: 1s;
+}
+
+
+.IMAGENES:hover{
+    transform: scale(1.1);
+    background-repeat: no-repeat;
+    background-size: cover;
+    outline: none;
+    overflow: hidden;
+}
+
+/* DROPDOWN */
+.dropdown .dropdown-menu{
+    display: none;
+}
+
+.dropdown:hover .dropdown-menu{
+display: block;
+margin-top: 0;
+}
+
+.dropdown:hover .dropdown-toggle:after{
+    border-top: 0;
+    border-bottom: .3em solid;
+}
+
+/* COLORES DE LOS PANELES INICIALES */
+
+.MENU{
+    transition: 1s;
+    border: none;
+}
+.MENU:hover {
+    transition: 1s;
+    background-color: #02639bd4;
+}
+
+.panel_inicial{
+    background-color: #02639B;
+}
+
+.panel_seccundario{
+    background-color: #02639bb9;
+}
+
+.SUB_MENU:hover{
+    background-color: #02639bd4;;
+}
+
+/* FIN COLORES DE LOS PANELES INICIALES */
+
+html{
+    height: 100%;
+}
+
+.BODY_LOGIN{
+    height: 100%;
+    background: rgb(2,0,36);
+    background-image: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 20%, rgba(0,212,255,1) 100%);
+}
