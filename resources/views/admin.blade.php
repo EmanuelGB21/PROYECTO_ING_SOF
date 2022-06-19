@@ -3,6 +3,7 @@
 
 @section('CSS')
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
 @endsection
 
 @section('TITULO')
@@ -45,12 +46,17 @@
 
     <a class="nav-link" href="#">
         <div class="sb-nav-link-icon"><i class="fas fa-file-pdf"></i></div>
-            Generar Reportes
+            Generar Reportes **
     </a>
         
     <a class="nav-link" href="#">
         <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
-            Ganancias
+            Ganancias **
+    </a>
+
+    <a class="nav-link" href="{{route('MIS_CLIENTES')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+            Mis clientes
     </a>
 @endsection
 
@@ -81,22 +87,46 @@
     @endif
     
     {{--  A PARTIR DE ACÁ CONTENIDO  --}}
+    <div class="container mt-5">
+        
+    </div>
 
-    <div class="container">
-        <table class="table table-light">
-            <thead class="thead-light">
-                <tr>
-                    <th>#</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($articulos as $item)
+    <div class="container mt-5 p-5">
+       <div class="card">
+        <div class="card-header">
+            <i class="fas fa-table"></i> Tabla de articulos reportados
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-bordered" id="tabla">
+                <thead class="bg-dark text-light text-center">
                     <tr>
-                        <td></td>
+                        <th>Fecha publicacion</th>
+                        <th>Nombre Articulo</th>
+                        <th>Dueño del articulo</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Acción</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($articulos as $item)
+                        <tr>
+                            <td>{{$item->fecha_publicacion_articulo}}</td>
+                            <td>{{$item->nombre_articulo}}</td>
+                            <td>{{$item->obtener_user->nombre}} {{$item->obtener_user->primer_apellido}} {{$item->obtener_user->segundo_apellido}}</td>
+                            <td>{{$item->obtener_user->telefono}}</td>
+                            <td>{{$item->obtener_user->correo}}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm">Contactar</button>
+                                
+                                <button class="btn btn-danger btn-sm">Estado</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+       </div>
     </div>
 
 @endsection
@@ -104,6 +134,9 @@
 
 @section('JS')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="{{asset('js/datatables-simple-demo.js')}}"></script>
+
     <script>
         function cerrar(){
             $('.toast').hide();

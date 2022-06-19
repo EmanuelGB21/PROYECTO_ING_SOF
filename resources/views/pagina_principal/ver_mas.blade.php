@@ -176,7 +176,7 @@
 
       <div class="card ficha_propietario">
         <div class="card-header text-center">
-          <img class="rounded-circle w-75" src="/imagenes/yo.jpg" alt="">
+          <img class="rounded-circle w-75" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
         </div>
         <div class="card-body">
           <p class="card-title text-muted mb-3"><strong>Dueño: {{$articulo->obtener_user->nombre}} {{$articulo->obtener_user->primer_apellido}} {{$articulo->obtener_user->segundo_apellido}}</strong></p>

@@ -34,10 +34,8 @@
 
 @section('MENU-LATERAL')    
     <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
-
     <a class="nav-link" href="{{route('home')}}">
-        <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle"></i></div>
-                                      
+        <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle"></i></div>          
         Arículos reportados
     </a>
 
@@ -87,43 +85,46 @@
         </div>
     </div>
     @endif
-    
-    <div class="container mt-1 p-5">
+    {{--  CONTENIDO  --}}
 
-        <button data-bs-toggle="modal" data-bs-target="#agregar_categorias" class="btn btn-primary">+ Nueva Categoría</button>
-        @include('modales.modal_agregar_categoria')
-        <div class="card mt-4">
-            <div class="card-header">
-                <i class="fas fa-table"></i> Tabla Categorías
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-bordered" id="tabla">
-                    <thead class="bg-dark text-light">
+    <div class="container mt-5"></div>
+
+    <div class="container mt-5 p-5">
+       <div class="card">
+        <div class="card-header">
+            <i class="fas fa-users"></i> Mis Clientes
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-bordered" id="tabla">
+                <thead class="bg-dark text-light text-center">
+                    <tr>
+                        <th>Fecha de Registro</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Vence</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($clientes as $item)
                         <tr>
-                            <th>#</th>
-                            <th>Nombre Categoria</th>
-                            <th class="text-center">Eliminar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($categorias as $item)
-                        <tr>
-                            <td>{{$item->id_categoria}}</td>
-                            <td>{{$item->nombre_categoria}}</td>
-    
-                            <td class="text-center">
-                                <form action="{{url('categorias/'.$item->id_categoria)}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('¿Desea eliminar esta categoría?')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                </form>
+                            <td>{{$item->fecha_registro}}</td>
+                            <td>{{$item->nombre}} {{$item->primer_apellido}} {{$item->segundo_apellido}}</td>
+                            <td>{{$item->telefono}}</td>
+                            <td>{{$item->correo}}</td>
+                            <td>vence tal fecha</td>
+                
+                            <td>
+                                <button class="btn btn-primary btn-sm">Contactar</button> 
+                                <button class="btn btn-danger btn-sm">Estado</button>
                             </td>
                         </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
+       </div>
     </div>
 
 @endsection

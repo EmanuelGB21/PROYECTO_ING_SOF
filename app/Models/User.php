@@ -16,6 +16,14 @@ class User extends Authenticatable
     protected $primaryKey = 'id_user';
     public $timestamps = false;
 
+    public function obtener_direccion(){
+        return $this->belongsTo(Direccion::class,'id_user');
+    }
+
+    public function obtener_articulos(){
+        return $this->hasMany(Articulo::class, 'id_user');
+    }
+    
     /**
      * The attributes that are mass assignable.
      *

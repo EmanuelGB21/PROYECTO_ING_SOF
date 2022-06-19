@@ -147,3 +147,19 @@ html{
     background: rgb(2,0,36);
     background-image: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 20%, rgba(0,212,255,1) 100%);
 }
+
+/* PÁGINA PROMOCIÓN DE LA PÁGINA */
+.fijado {
+    position: fixed;
+    z-index: 100;
+  }
+
+
+.MI_NAV{
+    transition-duration: 1s;
+}
+
+.MI_NAV:hover {
+    background: #3ead47;
+    transition-duration: 1s;
+  }

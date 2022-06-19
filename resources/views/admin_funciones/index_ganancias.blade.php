@@ -1,6 +1,5 @@
 @extends('Plantillas_Generales.plantilla_general_admin')
 
-
 @section('CSS')
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
@@ -34,10 +33,8 @@
 
 @section('MENU-LATERAL')    
     <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
-
     <a class="nav-link" href="{{route('home')}}">
-        <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle"></i></div>
-                                      
+        <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle"></i></div>          
         Arículos reportados
     </a>
 
@@ -87,44 +84,9 @@
         </div>
     </div>
     @endif
-    
-    <div class="container mt-1 p-5">
 
-        <button data-bs-toggle="modal" data-bs-target="#agregar_categorias" class="btn btn-primary">+ Nueva Categoría</button>
-        @include('modales.modal_agregar_categoria')
-        <div class="card mt-4">
-            <div class="card-header">
-                <i class="fas fa-table"></i> Tabla Categorías
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-bordered" id="tabla">
-                    <thead class="bg-dark text-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre Categoria</th>
-                            <th class="text-center">Eliminar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($categorias as $item)
-                        <tr>
-                            <td>{{$item->id_categoria}}</td>
-                            <td>{{$item->nombre_categoria}}</td>
-    
-                            <td class="text-center">
-                                <form action="{{url('categorias/'.$item->id_categoria)}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('¿Desea eliminar esta categoría?')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    {{--  CONTENIDO  --}}
+
 
 @endsection
 

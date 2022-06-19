@@ -32,6 +32,7 @@ class HomeController extends Controller
 
             $articulos = Articulo::with('obtener_user')
             ->where('reportado','1')
+            ->where('disponibilidad','1')
             ->get();
             
             return view('admin',compact('articulos')); 

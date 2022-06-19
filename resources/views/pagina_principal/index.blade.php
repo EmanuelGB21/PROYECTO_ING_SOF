@@ -28,7 +28,7 @@
         </a>
 
         <ul class="dropdown-menu panel_seccundario" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item text-light SUB_MENU" href="{{route('IR_ACERCA_DE')}}"><i class="fas fa-info-circle"></i> Acerca de</a></li>
+            <li><a class="dropdown-item text-light SUB_MENU" target="_blank" href="{{route('IR_ACERCA_DE')}}"><i class="fas fa-info-circle"></i> Acerca de</a></li>
             <li><a class="dropdown-item text-light SUB_MENU" href="{{route('IR_AYUDA')}}"><i class="fas fa-question-circle"></i> Ayuda</a></li>
         </ul>
         </li>
@@ -78,7 +78,15 @@
 
                     <hr>
                     
-                    <p class="text-muted"><b>{{$item->nombre_articulo}}</b></p>
+                    <div class="clearfix">
+                        <div class="float-start">
+                            <p class="text-muted"><b>{{$item->nombre_articulo}}</b></p>
+                        </div>
+                        <div class="float-end">
+                            <button class="btn btn-sm btn-dark text-light"><i class="fas fa-shopping-cart"></i></button>
+                        </div>
+                    </div>
+
                         @if ($item->descuento!=0)
                             @php
                                 $precio=$item->precio;

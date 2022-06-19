@@ -1,7 +1,7 @@
 @extends('Plantillas_Generales.plantilla_general_admin')
 
 @section('FOTO-DE-PERFIL')
-<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/yo.jpg')}}" alt=""> <span class="text-decoration-underline">{{ Auth::user()->nombre}}</span></a>
+<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""> <span class="text-decoration-underline">{{ Auth::user()->nombre}}</span></a>
 @endsection
 
 @section('TITULO')
@@ -16,7 +16,18 @@
     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
     <ul class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item text-light" href="#!"><i class="fas fa-user"></i> Mi Perfil</a></li>
+        
+        <li>
+            <form action="{{url('user/'.Auth::user()->id_user)}}" method="POST">
+                @csrf
+                @method('GET')
+
+                <button type="submit" class="dropdown-item text-light">
+                    <i class="fas fa-user"></i> Mi Perfil
+                </button>
+            </form>
+        </li>
+        
         <li>
             <hr class="dropdown-divider" />
         </li>

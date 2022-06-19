@@ -1,8 +1,11 @@
 @extends('Plantillas_Generales.plantilla_general_admin')
 
+@section('CSS')
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
+@endsection
 
 @section('FOTO-DE-PERFIL')
-<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/yo.jpg')}}" alt=""> <span class="text-decoration-underline">{{ Auth::user()->nombre}}</span></a>
+<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""> <span class="text-decoration-underline">{{ Auth::user()->nombre}}</span></a>
 @endsection
 
 @section('TITULO')
@@ -17,7 +20,18 @@
     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
     <ul class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item text-light" href="#!"><i class="fas fa-user"></i> Mi Perfil</a></li>
+        
+        <li>
+            <form action="{{url('user/'.Auth::user()->id_user)}}" method="POST">
+                @csrf
+                @method('GET')
+
+                <button type="submit" class="dropdown-item text-light">
+                    <i class="fas fa-user"></i> Mi Perfil
+                </button>
+            </form>
+        </li>
+        
         <li>
             <hr class="dropdown-divider" />
         </li>
@@ -69,24 +83,16 @@
     </div>
     @endif
 
-    <div class="container-fluid px-4">
-        <h1 class="mt-4">Tus artículos</h1>
+    <div class="container-fluid p-5">
+       {{--   <h1 class="mt-4">Tus artículos</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">A continuación se muestran tus artículos {{ Auth::user()->nombre }} <i class="fas fa-arrow-down"></i></li>
-        </ol>
+        </ol>  --}}
 
         <div class="row mt-2">
 
             <div class="container">
                 <div class="container-fluid p-2 mb-3">
-                    {{--  <div class="clearfix">
-                        <div class="float-start">
-                            
-                        </div>
-                        <div class="float-end">
-                            
-                        </div>
-                    </div>  --}}
 
                     <div class="row">
                         <div class="col text-start"> {{--  INICIO  --}}
@@ -106,52 +112,45 @@
                         <b><i class="fas fa-table"></i> Tabla de Artículos</b>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered">
-                            <thead class="text-center bg-dark text-light">
+                        <table class="table table-striped table-bordered" id="tabla">
+                            <thead class="bg-dark text-light py-0">
                                 <tr>
                                     <th>Fecha Publicación</th>
-                                    <th>Imagen</th>
+
                                     <th>
-                                        <div class="clearfix">
-                                            <div class="float-start mt-2">
-                                                Categoría
-                                            </div>
-                                            <div class="float-end mt-1">
-                                                <button data-bs-toggle="modal" data-bs-target="#desc_categoria" class=" btn btn-sm btn-secondary px-1 py-0"><i class="fas fa-sort-down"></i></button>
-                                                @include('modales.modal_descuento_por_categoria')
-                                            </div>
-                                        </div>
+                                        Categoría
+                                        <a data-bs-toggle="modal" data-bs-target="#desc_categoria" class="px-1 bg-primary">+</a>
+                                        @include('modales.modal_descuento_por_categoria')
                                     </th>
+
                                     <th>Nombre Artículo</th>
                                     <th>Precio</th>
-
-                                    <th>
-                                        <div class="clearfix">
-                                            <div class="float-start mt-2">
-                                                Desc. (%)
-                                            </div>
-                                            <div class="float-end mt-1">
-                                                <button data-bs-toggle="modal" data-bs-target="#desc_general" class=" btn btn-sm btn-secondary px-1 py-0"><i class="fas fa-sort-down"></i></button>
-                                                @include('modales.modal_descuento_general')
-                                            </div>
-                                        </div>
+                                    <th>Cantidad</th>
+                                    <th colspan="2">
+                                        Desc. (%)
+                                        <a data-bs-toggle="modal" data-bs-target="#desc_general" class="px-1 bg-primary">+</a>
+                                        @include('modales.modal_descuento_general')
                                     </th>
 
-                                    <th>Editar</th>
-                                    <th>Eliminar</th>
+                                    <th colspan="2" class="text-center">Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($mis_art as $item)
                                 <tr>
                                     <td>{{$item->fecha_publicacion_articulo}}</td>
-                                    <td><img src="" alt="imagen"></td>
                                     <td>{{$item->obtener_categoria->nombre_categoria}}</td>
                                     <td>{{$item->nombre_articulo}}</td>
                                     <td>{{$item->precio}}</td>
-                                    <td class="text-center"><button data-bs-toggle="modal" data-bs-target="#desc_por_articulo" class="btn btn-primary btn-sm"><i class="fas fa-percent"></i></button>
-                                    @include('modales.modal_descuento')
+                                    <td>{{$item->cantidad}}</td>
+                                   
+                                    <td class="text-center">
+                                        {{$item->descuento}}
                                     </td>
+
+                                    <td class="text-center">
+                                        <button data-bs-toggle="modal" data-bs-target="#desc_por_articulo" class="btn btn-primary btn-sm"><i class="fas fa-percent text-small"></i></button>
+                                        @include('modales.modal_descuento')</td>
                                     
                                     <td class="text-center">
                                         <form action="{{url('articulos/'.$item->id_articulo.'/edit')}}" method="post">
@@ -189,6 +188,9 @@
 
 @section('JS')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="{{asset('js/datatables-simple-demo.js')}}"></script>
+
     <script>
         function cerrar(){
             $('.toast').hide();
