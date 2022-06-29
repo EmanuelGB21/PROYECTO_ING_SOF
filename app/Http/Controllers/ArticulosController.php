@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EnvioMails;
+use App\Mail\Reportado;
+
 use App\Models\Articulo;
 use App\Models\Categoria;
 use App\Models\Estado_Articulo;
+use App\Models\Imagen;
 use Illuminate\Http\Request;
 
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ArticulosController extends Controller
 {
@@ -22,7 +28,7 @@ class ArticulosController extends Controller
         ->with('obtener_estado_articulo')
         ->where('reportado','0')
         ->where('disponibilidad','1')
-        ->paginate(12);
+        ->paginate(3);
        
         return view('pagina_principal.index', compact(['categorias','articulos']));
     }
@@ -63,8 +69,29 @@ class ArticulosController extends Controller
 
             $articulo->save();
 
+            /* GUARDA LAS IMAGENES DE DICHO ARTÍCULO */
+            if($request->hasFile('imagenes')){
+
+                $imagenes = $request->file('imagenes');
+                
+               foreach ($imagenes as $item){
+    
+                $ruta= $item->store('IMAGENES_SUBIDAS','public');
+                
+               
+                /* A LA BASE DE DATOS */
+                $imagen = new Imagen();
+    
+                $imagen->ruta_imagen = $ruta;
+                $imagen->id_articulo = $articulo->id_articulo;
+        
+                $imagen->save();
+                $imagen = new Imagen();
+               }     
+            }
+
             return redirect()->back()->with('mensaje','Artículo Registrado con éxito');
-           /*  return redirect()->route('home'); */
+           
         }
 
     }
@@ -127,55 +154,71 @@ class ArticulosController extends Controller
         $articulo->save();
 
         /* Notifica al usuario que su publicación fue reportada */
-       /*  $datos=[
-            'contenido'=>"Ponte en contacto con nosotros a este correo para tomar las medidas necesarias en un lapso de 15 días sino será borrada definitivamente",
-            'correo'=>$actualizar->obtener_user->correo,
-            'nombre_user'=>$actualizar->obtener_user->nombre_user,
-            'nombre_articulo'=>$actualizar->nombre_articulo,
+        $datos=[
+            'contenido'=>"Ponte en contacto con nosotros a este correo para tomar las medidas necesarias en un lapso de 8 días sino será ocultada definitivamente",
+            'correo'=>$articulo->obtener_user->correo,
+            'nombre'=>$articulo->obtener_user->nombre,
+            'primer_apellido'=>$articulo->obtener_user->primer_apellido,
+            'segundo_apellido'=>$articulo->obtener_user->segundo_apellido,
+            'nombre_articulo'=>$articulo->nombre_articulo,
             'estado'=>'reportada',
         ];
 
-        $correoDestino = $actualizar->obtener_user->correo;
-        $correoRemitente = "ntfnotificaciones@gmail.com";
+        $correoDestino = $articulo->obtener_user->correo;
+        $correoRemitente = "mercalinshop@gmail.com";
 
-        $correo = new Send_Mail($datos);
+        $correo = new EnvioMails($datos);
         $correo->from($correoRemitente);
 
-        Mail::to($correoDestino)->send($correo); */
+        Mail::to($correoDestino)->send($correo);
 
         return redirect()->route('pagina_principal')->with('mensaje','Publicación reportada con éxito');
     }
 
     /* FICHA DEL ARTÍCULO */
 
-    public function ficha_articulo_pdf(Request $request){
+    public function ficha_articulo_pdf($id){
         
-        $data="FICHA DEL ARTICULO".$request->id_articulo;
+        $ficha_articulo = Articulo::findOrFail($id);
 
-        $pdf = PDF::loadView('PDF.ficha_articulo',compact(['data']));
+        $pdf = PDF::loadView('PDF.ficha_articulo',compact(['ficha_articulo']));
         
         return $pdf->stream('');
     }
 
+    /* APLICADOR DE DESCUENTOS DEPENDIENDO DE LA ELECCIÓN DEL USUARIO */
     public function descuentos(Request $request){
 
         $tipo_descuento = $request->tipo_descuento; // ALL, IND, CAT
         
         if ($tipo_descuento=="ALL") { /* APLICA A TODO */
 
-            return "aplico descuento A TODO";
+                DB::table('articulos')
+                ->where('id_user', Auth::user()->id_user)
+                ->update(['descuento' => $request->descuento]);
+
+            return redirect()->back()->with('mensaje','Se ha agregado el descuento a todos tus artículos correctamente');
 
         }
 
         if ($tipo_descuento=="IND") { /* INDIVIDUAL */
 
-            return "aplico descuento por INDIVIDUAL";
+            $descuento_IND = Articulo::findOrFail($request->id_articulo);
 
+            $descuento_IND->descuento = $request->descuento;
+            $descuento_IND->save();
+            return redirect()->back()->with('mensaje','se ha agregado el descuento a tu artículo correctamente');
         }
 
         if ($tipo_descuento=="CAT") { /* POR CATEGORIAS */ 
 
-        return "aplico descuento por CATEGORIA"; 
+            DB::table('articulos')
+            ->where('id_user', Auth::user()->id_user)
+            ->where('id_categoria', $request->id_categoria)
+            ->update(['descuento' => $request->descuento]);
+
+        return redirect()->back()
+        ->with('mensaje','Se ha agregado el descuento por categoría a tus artículos correctamente');
 
         }
     }

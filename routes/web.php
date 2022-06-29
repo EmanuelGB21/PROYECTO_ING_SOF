@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ArticulosController;
 use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\DireccionesController;
+use App\Http\Controllers\ImagenesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,9 +31,9 @@ Route::get('/', [ArticulosController::class, 'index'])->name('pagina_principal')
 
 Route::get('/reportar/{id}', [ArticulosController::class, 'reportar'])->name('reportar');
 
-Route::get('ficha-articulo-en-pdf', 'App\Http\Controllers\ArticulosController@ficha_articulo_pdf')->name('GENERAR_PDF');
+Route::get('ficha-articulo-en-pdf/{id}', 'App\Http\Controllers\ArticulosController@ficha_articulo_pdf')->name('GENERAR_PDF');
 
-Route::get('/articulos/descuentos', [ArticulosController::class, 'descuentos'])->name('descuentos');
+Route::get('/descuentos', [ArticulosController::class, 'descuentos'])->name('descuentos');
 
 /* CONTROLADOR DE CATEGORIAS */
 
@@ -43,3 +45,10 @@ Route::get('/Admin-categorias', [CategoriasController::class, 'index'])->name('a
 /* CONTROLADOR DE USERS */
 Route::resource('user', UsersController::class);
 Route::get('/Mis-clientes', [UsersController::class, 'index'])->name('MIS_CLIENTES');
+
+
+/* DIRECCIONES */
+Route::resource('direcciones',DireccionesController::class);
+
+/* IMAGENES */
+Route::resource('imagenes_ruta',ImagenesController::class);

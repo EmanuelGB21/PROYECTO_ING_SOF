@@ -112,11 +112,8 @@
                             <td>{{$item->nombre_categoria}}</td>
     
                             <td class="text-center">
-                                <form action="{{url('categorias/'.$item->id_categoria)}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('¿Desea eliminar esta categoría?')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                </form>
+                                <button data-bs-toggle="modal" data-bs-target="#cat{{$item->id_categoria}}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                @include('alertas.elim_cat')
                             </td>
                         </tr>
                         @endforeach

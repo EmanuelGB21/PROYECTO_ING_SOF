@@ -13,7 +13,7 @@
  
   <link rel="icon" href="{{asset('imagenes/iconos/icono_pagina.ico')}}">
 
-  @yield('css')
+  @yield('CSS')
 
   <title>Merca-Lin</title>
 </head>

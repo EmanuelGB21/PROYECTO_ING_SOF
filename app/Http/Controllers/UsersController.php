@@ -19,9 +19,17 @@ class UsersController extends Controller
     {
 
         $cliente = User::findOrFail($id);
+        $provincias = array('0' => 'Alajuela', 
+        '1' => 'Cartago',
+        '2' => 'Guanacaste',
+        '3' => 'Heredia',
+        '4' => 'Limón',
+        '5' => 'Puntarenas',
+        '6' => 'San José',
+    );
 
         /* BUSCAR TOTAL DE ARTICULOS PUBLICADOS POR X CLIENTE TANTO GENERAL COMO EN CATEGORIAS */
-        return view('Gestionar_perfil.index_perfil', compact('cliente'));
+        return view('Gestionar_perfil.index_perfil', compact(['cliente','provincias']));
 
     }
 
@@ -48,7 +56,7 @@ class UsersController extends Controller
         $borrar->estado_cuenta = 0;
         $borrar->save();
          
-        return redirect()->back()->with('mensaje','Tu cuenta se ha eliminado con éxito');
+        return redirect()->route('home')->with('mensaje','Tu cuenta se ha eliminado con éxito');
 
     }
 

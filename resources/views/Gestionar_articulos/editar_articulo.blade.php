@@ -78,87 +78,125 @@
     </div>
     @endif
 
+    {{--  CONTENIDO  --}}
+
     <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-7">
+                <form method="POST" action="{{url('articulos/'.$articulo->id_articulo)}}">
+                    @csrf
+                    @method('PUT')
         
-        <form class="row form_registro_articulo" method="POST" action="{{url('articulos/'.$articulo->id_articulo)}}">
-            @csrf
-            @method('PUT')
+                        <div class="card FORM_REG_ART">
+        
+                            <div class="card-header text-center bg-dark text-light">
+                                <h6 class="mt-1"><i class="fas fa-clipboard"></i> Formulario de Actualización de Artículos</h6>
+                            </div>
+                            
+                            <div class="card-body">
+                                
+                                <div class="input-group mt-2">
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Nombre:</span>
+                                    <input required name="nombre_articulo" value="{{$articulo->nombre_articulo}}" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                                </div>
+                
+                                <div class="row g-3 mt-4">
+            
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="inputGroup-sizing-lg">Categoría:</span>
+                                            <select class="form-select" name="id_categoria">
+                                                @foreach ($categorias as $item)
+                                                    <option value="{{$item->id_categoria}}" {{($articulo->id_categoria==$item->id_categoria)?'selected':''}} >{{$item->nombre_categoria}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+            
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="inputGroup-sizing-lg">Estado:</span>
+                                            <select class="form-select" name="id_estado_articulo">
+                                                @foreach ($estado_articulo as $item)
+                                                    <option value="{{$item->id_estado_articulo}}" {{($articulo->id_estado_articulo==$item->id_estado_articulo)?'selected':''}} >{{$item->estado_articulo}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+            
+                                </div>
+            
+            
+                                <div class="row g-3 mt-4">
+            
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="inputGroup-sizing-lg">Precio:</span>
+                                            <input name="precio" value="{{$articulo->precio}}" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                                        </div>
+                                    </div>
+            
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="inputGroup-sizing-lg">Cantidad:</span>
+                                            <input name="cantidad" min="1" value="{{$articulo->cantidad}}" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                                        </div>
+                                    </div>
+            
+                                </div>
+            
+            
+                                <div class="input-group mt-4">
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Descripción:</span>
+                                    <textarea name="descripcion" value="{{$articulo->descripcion}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" class="form-control" rows="3" maxlength="238">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus omnis expedita molestiae dignissimos commodi quisquam est, vero eum neque laudantium maiores ut. Nobis doloribus numquam nesciunt incidunt nulla! Sapiente, similique.</textarea>
+                                </div>
+            
+                                <div class="mt-3 text-center">
+                                    <a href="{{route('home')}}" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Regresar</a>
+                                    <button class="btn btn-primary"><i class="fas fa-save"></i> Actualizar</button>
+                                </div>
+        
+                            </div>
+                        </div>
+                </form> 
+            </div>
 
-            <div class="col-1"></div>
-            <div class="col-9">
-                <div class="card FORM_REG_ART">
-
-                    <div class="card-header text-center rounded-pill bg-dark text-light">
-                        <h6 class="mt-1"><i class="fas fa-clipboard"></i> Formulario de Actualización de Artículos</h6>
+            <div class="col-sm-5">
+                <div class="card">
+                    <div class="card-header bg-dark text-light">
+                        <h6 class="mt-1"><i class="fas fa-images"></i> Imágenes</h6>
                     </div>
-                    
                     <div class="card-body">
-                        
-                        <div class="input-group mt-2">
-                            <span class="input-group-text" id="inputGroup-sizing-lg">Nombre del Artículo</span>
-                            <input required name="nombre_articulo" value="{{$articulo->nombre_articulo}}" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-                        </div>
-        
-                        <div class="row g-3 mt-4">
-    
-                            <div class="col">
-                                <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-lg">Categoría</span>
-                                    <select class="form-select" name="id_categoria">
-                                        @foreach ($categorias as $item)
-                                            <option value="{{$item->id_categoria}}" {{($articulo->id_categoria==$item->id_categoria)?'selected':''}} >{{$item->nombre_categoria}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                        <form action="{{url('imagenes_ruta/')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label class="mb-2" for="my-input">Buscar Imágenes:</label>
+                                <input type="hidden" name="id_articulo" value="{{$articulo->id_articulo}}">
+                                <input required class="form-control" type="file" name="ruta_imagen">
                             </div>
-    
-                            <div class="col">
-                                <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-lg">Estado del Artículo</span>
-                                    <select class="form-select" name="id_estado_articulo">
-                                        @foreach ($estado_articulo as $item)
-                                            <option value="{{$item->id_estado_articulo}}" {{($articulo->id_estado_articulo==$item->id_estado_articulo)?'selected':''}} >{{$item->estado_articulo}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-    
-                        </div>
-    
-    
-                        <div class="row g-3 mt-4">
-    
-                            <div class="col">
-                                <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-lg">Precio</span>
-                                    <input name="precio" value="{{$articulo->precio}}" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-                                </div>
-                            </div>
-    
-                            <div class="col">
-                                <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-lg">Cantidad</span>
-                                    <input name="cantidad" min="1" value="{{$articulo->cantidad}}" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-                                </div>
-                            </div>
-    
-                        </div>
-    
-    
-                        <div class="input-group mt-4">
-                            <span class="input-group-text" id="inputGroup-sizing-lg">Descripción</span>
-                            <textarea name="descripcion" value="{{$articulo->descripcion}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" class="form-control" rows="3" maxlength="238">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus omnis expedita molestiae dignissimos commodi quisquam est, vero eum neque laudantium maiores ut. Nobis doloribus numquam nesciunt incidunt nulla! Sapiente, similique.</textarea>
-                        </div>
-    
-                        <div class="mt-3 text-center">
-                            <button class="btn btn-primary"><i class="fas fa-save"></i> Actualizar</button>
-                        </div>
 
+                            <button class="mt-3 btn btn-primary"><i class="fas fa-upload"></i> Subir</button>
+                        </form>
+
+                        <hr>
+                        
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            @foreach ($articulo->obtener_imagenes as $img)
+                                <div class="col"> 
+                                    <div class="card-img-top">  
+                                        <button style="position: absolute;" data-bs-toggle="modal" data-bs-target="#img{{$img->id_imagen}}" class="btn btn-sm btn-danger rounded-circle"><i class="fas fa-times"></i></button>
+                                        @include('alertas.elim_img')
+                                        <img class="img-fluid" src="{{asset('storage').'/'.$img->ruta_imagen}}" alt="">
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-        </form> 
+        </div>
     </div>
+
 @endsection
 
 @section('JS')

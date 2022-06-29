@@ -120,7 +120,6 @@
                                     <th>
                                         Categoría
                                         <a data-bs-toggle="modal" data-bs-target="#desc_categoria" class="px-1 bg-primary">+</a>
-                                        @include('modales.modal_descuento_por_categoria')
                                     </th>
 
                                     <th>Nombre Artículo</th>
@@ -129,7 +128,6 @@
                                     <th colspan="2">
                                         Desc. (%)
                                         <a data-bs-toggle="modal" data-bs-target="#desc_general" class="px-1 bg-primary">+</a>
-                                        @include('modales.modal_descuento_general')
                                     </th>
 
                                     <th colspan="2" class="text-center">Acción</th>
@@ -149,7 +147,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <button data-bs-toggle="modal" data-bs-target="#desc_por_articulo" class="btn btn-primary btn-sm"><i class="fas fa-percent text-small"></i></button>
+                                        <button data-bs-toggle="modal" data-bs-target="#h{{$item->id_articulo}}" class="btn btn-primary btn-sm"><i class="fas fa-percent text-small"></i></button>
                                         @include('modales.modal_descuento')</td>
                                     
                                     <td class="text-center">
@@ -161,11 +159,8 @@
                                     </td>
                                     
                                     <td class="text-center">
-                                        <form action="{{url('articulos/'.$item->id_articulo)}}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button onclick="return confirm('¿Desea eliminar el articulo: {{$item->nombre_articulo}}?')" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                        </form>
+                                        <button data-bs-toggle="modal" data-bs-target="#confirmar{{$item->id_articulo}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                        @include('alertas.alert_modal')</td>
                                     </td>
                                 </tr>
 
@@ -182,19 +177,24 @@
         </div>
 
     </div>
-    
+    <div>
+        @include('modales.modal_descuento_por_categoria')
+    </div>
+    <div>
+        @include('modales.modal_descuento_general')
+    </div>
 @endsection
 
 
 @section('JS')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="{{asset('js/datatables-simple-demo.js')}}"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="{{asset('js/datatables-simple-demo.js')}}"></script>
     <script>
         function cerrar(){
             $('.toast').hide();
         }
+
     </script>
 @endsection
 

@@ -1,9 +1,9 @@
-<div class="modal fade" tabindex="-1" id="mas_info">
+<div class="modal fade"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" id="mas_info">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-dark text-light">
           <h5 class="modal-title">Solo falta un paso más</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn text-light" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
 

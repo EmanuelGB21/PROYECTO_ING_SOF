@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Articulo;
-use App\Models\Categoria;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Monolog\Handler\IFTTTHandler;
 
 class HomeController extends Controller
 {
@@ -26,7 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
         
         if(Auth::user()->id_tipo_cuenta==2){ // ES ADMIN
 
@@ -38,14 +36,21 @@ class HomeController extends Controller
             return view('admin',compact('articulos')); 
 
         }else{ // SINO, ES UN VENDEDOR
-
-        $mis_art = Articulo::with('obtener_imagenes')
-        ->where('id_user',Auth::user()->id_user)
-        ->where('reportado','0') // SINO HA SIDO REPORTADO, QUE LO VEA EL CLIENTE
-        ->where('disponibilidad','1') // SIMULA ELIMINADO O NO
-        ->get();
         
-        return view('user',compact(['categorias','mis_art']));
+            if(Auth::user()->estado_cuenta==1){
+                $mis_art = Articulo::with('obtener_imagenes')
+                ->where('id_user',Auth::user()->id_user)
+                ->where('reportado','0') // SINO HA SIDO REPORTADO, QUE LO VEA EL CLIENTE
+                ->where('disponibilidad','1') // SIMULA ELIMINADO O NO
+                ->get();
+                
+                return view('user',compact('mis_art')); 
+            }else{
+
+                return view('ERROR.error_acceso');
+                
+            }
+        
         }
         
     }

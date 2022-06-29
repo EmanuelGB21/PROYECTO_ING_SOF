@@ -96,7 +96,7 @@
                     <div class="card-body">
                         
                         <div class="input-group mt-2">
-                            <span class="input-group-text" id="inputGroup-sizing-lg">Nombre del Artículo</span>
+                            <span class="input-group-text" id="inputGroup-sizing-lg">Nombre:</span>
                             <input required placeholder="Nombre Artículo" name="nombre_articulo" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                         </div>
         
@@ -104,7 +104,7 @@
     
                             <div class="col">
                                 <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-lg">Categoría</span>
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Categoría:</span>
                                     <select class="form-select" name="id_categoria">
                                         @foreach ($categorias as $item)
                                             <option value="{{$item->id_categoria}}">{{$item->nombre_categoria}}</option>
@@ -115,7 +115,7 @@
     
                             <div class="col">
                                 <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-lg">Estado del Artículo</span>
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Estado:</span>
                                     <select class="form-select" name="id_estado_articulo">
                                         @foreach ($estado_articulo as $item)
                                             <option value="{{$item->id_estado_articulo}}">{{$item->estado_articulo}}</option>
@@ -131,14 +131,14 @@
     
                             <div class="col">
                                 <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-lg">Precio</span>
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Precio: </span>
                                     <input required name="precio" placeholder="$" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                                 </div>
                             </div>
     
                             <div class="col">
                                 <div class="input-group">
-                                    <span class="input-group-text" id="inputGroup-sizing-lg">Cantidad</span>
+                                    <span class="input-group-text" id="inputGroup-sizing-lg">Cantidad: </span>
                                     <input required name="cantidad" min="1" placeholder="Cantidad Disponible" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
     
     
                         <div class="input-group mt-4">
-                            <span class="input-group-text" id="inputGroup-sizing-lg">Descripción</span>
+                            <span class="input-group-text" id="inputGroup-sizing-lg">Descripción: </span>
                             <textarea required name="descripcion" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" class="form-control" rows="3" maxlength="238">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus omnis expedita molestiae dignissimos commodi quisquam est, vero eum neque laudantium maiores ut. Nobis doloribus numquam nesciunt incidunt nulla! Sapiente, similique.</textarea>
                         </div>
     
@@ -155,13 +155,12 @@
     
                         <label class="mt-4 mb-2">Imagenes de tu artículo (4 máximo)</label>
                         <div class="input-group">
-                            <input required id="image_file" multiple name="imagenes[]" accept="image/*" type="file" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                            <input required multiple name="imagenes[]" accept="image/*" type="file" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                         </div>
     
                         <div class="mt-3 text-center">
-
                             <button class="btn btn-primary"><i class="fas fa-upload"></i> Registrar</button>
-                        
+                            <a href="{{route('home')}}" class="btn btn-danger"><i class="fas fa-times"></i> Cancelar</a>
                         </div>
                     </div>
                 </div>

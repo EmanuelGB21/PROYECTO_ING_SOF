@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Imagen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ImagenesController extends Controller
 {
@@ -34,8 +36,18 @@ class ImagenesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+            $imagen_nueva = $request->file('ruta_imagen')->store('IMAGENES_SUBIDAS','public');
+
+            /* A LA BASE DE DATOS */
+            $imagen = new Imagen();
+
+            $imagen->ruta_imagen = $imagen_nueva;
+            $imagen->id_articulo = $request->id_articulo;
+    
+            $imagen->save();   
+
+            return redirect()->back()->with('mensaje','Se ha agregado la imagen correctamente');
+         }
 
     /**
      * Display the specified resource.
@@ -77,8 +89,14 @@ class ImagenesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $url = $request->ruta_imagen;
+        
+        Storage::delete('public/'.$url);        
+        
+        Imagen::destroy($id);
+
+        return redirect()->back()->with('mensaje','Se eliminó la imagen correctamente');
     }
 }

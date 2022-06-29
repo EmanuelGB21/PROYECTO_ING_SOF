@@ -77,7 +77,7 @@
         </div>
     </div>
     @endif
-
+    <h6>CAMBIAR CONTRASEÑA?</h6>
     <div class="container mt-5">
         <div class="container">
             <div class="main-body">
@@ -94,8 +94,7 @@
                               <p class="text-muted font-size-sm">{{$cliente->obtener_direccion->pais}}, {{$cliente->obtener_direccion->provincia}}, {{$cliente->obtener_direccion->ciudad}}</p>
                               
                               <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit_user">Editar</button>
-
-                              <button class="btn btn-danger btn-sm">Eliminar</button>
+                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminar_perfil">Eliminar</button>
                             </div>
                           </div>
                         </div>
@@ -246,6 +245,10 @@
 
     <div>
       @include('modales.modal_edit_user')
+    </div>
+
+    <div>
+      @include('alertas.modal_eliminar_perfil')
     </div>
 
 

@@ -47,12 +47,9 @@
             </div>
 
             <div class="col text-end">
-              <form method="POST" action="{{route('GENERAR_PDF')}}">
-                @csrf
-                @method('GET')
-                <input type="hidden" name="id_articulo" value="{{$articulo->id_articulo}}">
-                <button class="btn btn-danger">PDF <i class="fas fa-download"></i></button>
-              </form>
+             
+              <a target="_blank" href="{{route('GENERAR_PDF',$articulo->id_articulo)}}" class="btn btn-danger">PDF <i class="fas fa-download"></i></a>
+
             </div>
 
           </div>
@@ -128,7 +125,7 @@
               @if ($articulo->descuento!=0)
                   @php
                       $precio=$articulo->precio;
-                      $descuento=$item->descuento;
+                      $descuento=$articulo->descuento;
 
                       $operacion=100-$descuento;
                       $resultado=$precio*($operacion/100);
