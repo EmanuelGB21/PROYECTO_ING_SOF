@@ -1,15 +1,11 @@
 @extends('Plantillas_Generales.plantilla_general_admin')
 
 @section('FOTO-DE-PERFIL')
-<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""> <span class="text-decoration-underline">{{ Auth::user()->nombre}}</span></a>
+<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('storage'.'/'.$cliente->foto_perfil)}}" alt=""> <span class="badge bg-success">{{ Auth::user()->nombre}}</span></a>
 @endsection
 
 @section('TITULO')
     <title>Tu Perfil</title>
-@endsection
-
-@section('BUSQUEDAS')
-    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></div>
 @endsection
 
 @section('DROPDOWN')
@@ -77,7 +73,6 @@
         </div>
     </div>
     @endif
-    <h6>CAMBIAR CONTRASEÑA?</h6>
     <div class="container mt-5">
         <div class="container">
             <div class="main-body">
@@ -87,14 +82,18 @@
                       <div class="card">
                         <div class="card-body">
                           <div class="d-flex flex-column align-items-center text-center">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                            <img src="{{asset('storage').'/'.$cliente->foto_perfil}}" class="rounded-circle" width="150">
                             <div class="mt-3">
                               <h4>{{$cliente->nombre_user}}</h4>
                               <p class="text-secondary mb-1">Vendedor en la página Merca-Lín</p>
                               <p class="text-muted font-size-sm">{{$cliente->obtener_direccion->pais}}, {{$cliente->obtener_direccion->provincia}}, {{$cliente->obtener_direccion->ciudad}}</p>
                               
-                              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit_user">Editar</button>
-                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminar_perfil">Eliminar</button>
+                              <a class="btn btn-secondary btn-sm" href="{{ route('password.request') }}">
+                                Cambiar contraseña
+                              </a>
+
+                              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit_user{{$cliente->id_user}}">Editar</button>
+                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminar_perfil{{$cliente->id_user}}">Eliminar</button>
                             </div>
                           </div>
                         </div>
@@ -133,7 +132,7 @@
                               <h6 class="mb-0">Correo</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                              {{$cliente->correo}}
+                              {{$cliente->email}}
                             </div>
                           </div>
                           <hr>
@@ -166,7 +165,7 @@
                           <hr>
                           <div class="row">
                             <div class="col-sm-12">
-                              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit_direccion">Editar Dirección</button>
+                              <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit_direccion{{$cliente->id_user}}">Editar Dirección</button>
                              
                             </div>
                           </div>
@@ -176,7 +175,7 @@
                       <div class="row gutters-sm">
                         <div class="col-sm-6 mb-3">
                           <div class="card h-100">
-                            <div class="card-body">
+                            <div class="card-body text-center">
                               <button class="btn btn-danger">Lista de artículos publicados PDF</button>
                              {{--   <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
                               <small>Web Design</small>
@@ -204,7 +203,7 @@
                         </div>
                         <div class="col-sm-6 mb-3">
                           <div class="card h-100">
-                            <div class="card-body">
+                            <div class="card-body text-center">
                               <button class="btn btn-danger">Lista de artículos vendidos PDF</button>
                              {{--   <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
                               <small>Web Design</small>

@@ -33,8 +33,11 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
           </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+          <form class="d-flex" method="POST" action="{{route('buscar',['id' => '0', 'tipo_busqueda' => 'CT'])}}">
+            @csrf
+            @method('GET')
+            <input class="form-control me-2" name="campo_busqueda" type="search" placeholder="Buscar" aria-label="Search">
+            
             <button class="btn btn-success" type="submit"><i class="fas fa-search"></i></button>
           </form>
         </div>
@@ -60,7 +63,8 @@
 
 
   {{--  CONTENIDO DE LA PÁGINA (ARTICULOS) --}}
-
+  @yield('MENSAJE')
+  
   <div class="container mt-5">
    
       @yield('CONTENIDO')

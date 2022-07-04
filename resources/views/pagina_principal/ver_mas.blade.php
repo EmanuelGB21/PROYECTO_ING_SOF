@@ -57,43 +57,44 @@
         <div class="row g-0">
           <div class="col-md-6">
             <!--INICIA CAROUSEL -->
-            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div id="img{{$articulo->id_articulo}}" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
               <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                  aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-
+                @foreach ($articulo->obtener_imagenes as $valor=>$item)
+                  @if ($valor==0)
+                    <button type="button" data-bs-target="#img{{$articulo->id_articulo}}" data-bs-slide-to="{{$loop->index}}" class="active"
+                    aria-current="true" aria-label="Slide {{$loop->index}}"></button>
+                  @else  
+                  <button type="button" data-bs-target="#img{{$articulo->id_articulo}}" data-bs-slide-to="{{$loop->index}}" aria-label="Slide {{$loop->index}}"></button>
+                  @endif
+                @endforeach
               </div>
 
               <div class="carousel-inner">
                 
-                <div class="carousel-item active">
-                  <div
-                    style="width: 100%; height:280px; background-image: url('/otro/monitor 1.jpg'); background-repeat: no-repeat;background-size: cover;">
-                  </div>
-                </div>
-
-                <div class="carousel-item">
-                  <div
-                    style="width: 100%; height:280px; background-image: url('/otro/monitor 2.jpg'); background-repeat: no-repeat;background-size: cover;">
-                  </div>
-                </div>
-
-                <div class="carousel-item">
-                  <div
-                    style="width: 100%; height:280px; background-image: url('/otro/monitor 3.jpg'); background-repeat: no-repeat;background-size: cover;">
-                  </div>
-                </div>
-
+                @foreach ($articulo->obtener_imagenes as $valor=>$img)
+                    @if ($valor==0)
+                      <div class="carousel-item active">
+                        <div
+                          style="width: 100%; height:280px; background-image: url('{{asset('storage').'/'.$img->ruta_imagen}}'); background-repeat: no-repeat;background-size: cover;">
+                        </div>
+                      </div>
+                    @else
+                      <div class="carousel-item">
+                        <div
+                          style="width: 100%; height:280px; background-image: url('{{asset('storage').'/'.$img->ruta_imagen}}'); background-repeat: no-repeat;background-size: cover;">
+                        </div>
+                      </div>   
+                    @endif
+                @endforeach
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+
+              <button class="carousel-control-prev" type="button" data-bs-target="#img{{$articulo->id_articulo}}"
                 data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
               </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+              <button class="carousel-control-next" type="button" data-bs-target="#img{{$articulo->id_articulo}}"
                 data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
@@ -190,121 +191,51 @@
       </div>
 
       <div class="card-header reportar-publicacion mt-2">
-        
-          <form class="form-inline" action="{{route('reportar',$articulo->id_articulo)}}" method="POST">
-            @csrf
-            @method('GET')
+          <div class="form-inline">
             <label class="text-center p-2"><b>Reportar Publicación</b></label>
-            <button onclick="return confirm('Desea reportar este artículo?')" class="btn btn-danger btn-sm"><i class="fas fa-info-circle"></i></button>
-          </form>
-      
+            <button data-bs-toggle="modal" data-bs-target="#reportar{{$articulo->id_articulo}}" class="btn btn-danger btn-sm"><i class="fas fa-info-circle"></i></button>
+          </div>
       </div>
 
     </div> <!-- FIN DATOS DEL PROPIETARIO -->
   </div>
 
   <div class="container gallery-container">
-
     <h2>Fotografías</h2>
-
     <div class="tz-gallery">
-
       <div class="row m-5">
-
-        <div class="col-lg-4 mb-4">
-          <a class="lightbox" href="#!" data-bs-toggle="modal" data-bs-target="#my_modal1">
-            <img class="w-100 mb-4 rounded" src="/otro/fiat_panda_cross_2021_0000.jpg" alt="1">
-          </a>
-        </div>
-
-        <div class="col-lg-4 mb-4">
-          <a class="lightbox" href="#!" data-bs-toggle="modal" data-bs-target="#my_modal2">
-            <img class="w-100 mb-4 rounded" src="/otro/fiat-panda-2021-2110053.jpg" alt="2">
-          </a>
-        </div>
-
-        <div class="col-lg-4 mb-4">
-          <a class="lightbox" href="#!" data-bs-toggle="modal" data-bs-target="#my_modal3">
-            <img class="w-100 mb-4 rounded" src="/otro/fiat-panda-lateral-posterior.352477.jpg" alt="3">
-          </a>
-        </div>
-
-        <div class="col-lg-4 mb-4">
-          <a class="lightbox" href="#!" data-bs-toggle="modal" data-bs-target="#my_modal4">
-            <img class="w-100 mb-4 rounded" src="/otro/fiat_panda_cross_2021_0000.jpg" alt="1">
-          </a>
-        </div>
-        
+        @foreach ($articulo->obtener_imagenes as $img)
+          <div class="col-lg-4 mb-4">
+            <a class="lightbox" href="#!" data-bs-toggle="modal" data-bs-target="#my_modal{{$loop->index}}">
+              <img class="w-100 mb-4 rounded" src="{{asset('storage'.'/'.$img->ruta_imagen)}}">
+            </a>
+          </div>
+        @endforeach
       </div>
-
     </div>
-
   </div>
-
   <br><br>
-
   {{--  MODAL DE LAS FOTOS  --}}
-
-  {{--  FOTO 1  --}}
-
-  <div id="my_modal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my_modal1" aria-hidden="true">
+  @foreach ($articulo->obtener_imagenes as $item)
+  <div id="my_modal{{$loop->index}}" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="my_modal{{$loop->index}}" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <img class="w-100" src="/otro/fiat_panda_cross_2021_0000.jpg" alt="">
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  {{--  FOTO 2  --}}
-  <div id="my_modal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my_modal2" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <img class="w-100" src="/otro/fiat-panda-2021-2110053.jpg" alt="">
+          <img class="w-100" src="{{asset('storage'.'/'.$item->ruta_imagen)}}" alt="">
         </div>
       </div>
     </div>
   </div>
+  @endforeach
 
-  {{--  FOTO 3  --}}
-  <div id="my_modal3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my_modal3" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <img class="w-100" src="/otro/fiat-panda-lateral-posterior.352477.jpg" alt="">
-        </div>
-      </div>
-    </div>
+  {{--  MODAL REPORTAR  --}}
+  <div>
+    @include('alertas.report_articulo')
   </div>
-
-  {{--  FOTO 4  --}}
-  <div id="my_modal4" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my_modal4" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <img class="w-100" src="/otro/fiat_panda_cross_2021_0000.jpg" alt="">
-        </div>
-      </div>
-    </div>
-  </div>
-
 @endsection
-
 
 @section('js')
   <script src="{{asset('js/bootstrap.min.js')}}"></script>

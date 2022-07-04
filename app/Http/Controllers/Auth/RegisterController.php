@@ -59,7 +59,7 @@ class RegisterController extends Controller
             'nombre' => ['required', 'string', 'max:255'],
             'primer_apellido' => ['required', 'string', 'max:255'],
             'segundo_apellido' => ['required', 'string', 'max:255'],
-            'correo' => ['required', 'string', 'email', 'max:255',],
+            'email' => ['required', 'string', 'email', 'max:255',],
             'telefono' => ['required', 'int', 'min:8'],
             'estado_cuenta' =>['required','boolean','min:1'],
         ]);
@@ -86,12 +86,12 @@ class RegisterController extends Controller
             'contenido'=>"Datos para iniciar sesión, no compartas esta información con nadie",
             'url'=>getcwd(),
             'nombre_user'=>$data['nombre_user'],
-            'correo'=>$data['correo'],
+            'email'=>$data['email'],
             'password' =>$contra_temporal,
             'estado' =>'registrarse',
         ];
 
-        $correoDestino = $data['correo']; /* QUIEN RECIBE EL CORREO */
+        $correoDestino = $data['email']; /* QUIEN RECIBE EL CORREO */
         $correoRemitente = "mercalinshop@gmail.com"; /* QUIEN LO ESTÁ ENVIANDO */
 
         $correo = new EnvioMails($datos);
@@ -107,7 +107,7 @@ class RegisterController extends Controller
             'nombre' => $data['nombre'],
             'primer_apellido' => $data['primer_apellido'],
             'segundo_apellido' => $data['segundo_apellido'],
-            'correo' => $data['correo'],
+            'email' => $data['email'],
             'fecha_registro' => date('Y-m-d'),
             'telefono' =>$data['telefono'],
             'estado_cuenta' =>$data['estado_cuenta'],

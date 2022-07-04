@@ -8,6 +8,12 @@ use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+/* Route::get('/ERROR', function () {
+    return view('ERROR.error_busqueda');
+})->name('error'); */
+
+
 /* RUTAS DE LA PÁGINA WEB */
 
 Route::get('/Acerca-De', function () {
@@ -34,6 +40,8 @@ Route::get('/reportar/{id}', [ArticulosController::class, 'reportar'])->name('re
 Route::get('ficha-articulo-en-pdf/{id}', 'App\Http\Controllers\ArticulosController@ficha_articulo_pdf')->name('GENERAR_PDF');
 
 Route::get('/descuentos', [ArticulosController::class, 'descuentos'])->name('descuentos');
+
+Route::get('/busquedas/{id}/{tipo_busqueda}', [ArticulosController::class, 'busquedas'])->name('buscar');
 
 /* CONTROLADOR DE CATEGORIAS */
 

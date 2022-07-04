@@ -10,11 +10,7 @@
 @endsection
 
 @section('FOTO-DE-PERFIL')
-<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/ADMIN.png')}}" alt=""> <span class="text-decoration-underline">Administrador</span></a>
-@endsection
-
-@section('BUSQUEDAS')
-    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></div>
+<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/ADMIN.png')}}" alt=""> <span class="badge bg-danger">Administrador</span></a>
 @endsection
 
 @section('DROPDOWN')

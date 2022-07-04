@@ -11,11 +11,7 @@
 @endsection
 
 @section('FOTO-DE-PERFIL')
-<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/ADMIN.png')}}" alt=""> <span class="text-decoration-underline">Administrador</span></a>
-@endsection
-
-@section('BUSQUEDAS')
-    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></div>
+<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/ADMIN.png')}}" alt=""> <span class="badge bg-danger">Administrador</span></a>
 @endsection
 
 @section('DROPDOWN')
@@ -67,25 +63,25 @@
 @section('CONTENIDO')
 
     @if (session('mensaje'))
-    <div aria-live="polite" aria-atomic="true" class="position-relative" data-bs-delay="100">
-                
-        <div class="toast-container position-absolute top-0 end-0 p-3" style="z-index:11">
+        <div aria-live="polite" aria-atomic="true" class="position-relative" data-bs-delay="100">
+                    
+            <div class="toast-container position-absolute top-0 end-0 p-3" style="z-index:11">
 
-            <div class="toast show" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
-            
-                <div class="toast-header">
-                <strong class="me-auto"><i class="fas fa-info-circle text-primary"></i> Notificación</strong>
-                <small class="text-muted">justo ahora</small>
-                <button type="button" onclick="cerrar()" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                <p class="text-success"><i class="fas fa-check-circle text-success"></i> {{session('mensaje')}}</p>
+                <div class="toast show" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
+                
+                    <div class="toast-header">
+                    <strong class="me-auto"><i class="fas fa-info-circle text-primary"></i> Notificación</strong>
+                    <small class="text-muted">justo ahora</small>
+                    <button type="button" onclick="cerrar()" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                    <p class="text-success"><i class="fas fa-check-circle text-success"></i> {{session('mensaje')}}</p>
+                    </div>
+
                 </div>
 
             </div>
-
         </div>
-    </div>
     @endif
     
     <div class="container mt-1 p-5">

@@ -33,7 +33,53 @@ class ArticulosController extends Controller
         return view('pagina_principal.index', compact(['categorias','articulos']));
     }
 
- 
+
+    /* BUSQUEDA DE ARTICULOS */
+
+    public function busquedas(Request $request,$id,$tipo_busqueda){
+
+        $categorias = Categoria::all();
+
+        if($tipo_busqueda=="CT" && $id==0){ //NO TRAE ID Y ES CT BUSCA POR CAMPO DE TEXTO
+            
+            if(Articulo::where('nombre_articulo','like','%'.$request->campo_busqueda.'%')->exists()){
+            $articulos = Articulo::with('obtener_imagenes')
+            ->with('obtener_categoria')
+            ->with('obtener_estado_articulo')
+            ->where('reportado','0')
+            ->where('disponibilidad','1')
+            ->where('nombre_articulo','like','%'.$request->campo_busqueda.'%')
+            ->paginate(3);
+        
+            return view('pagina_principal.index', compact(['categorias','articulos']));
+            }
+            else{
+                return view('ERROR.error_busqueda', compact('categorias'),
+                ['mensaje'=>'La busqueda no ha podido ser encontrada']);
+            }
+
+        }else if($tipo_busqueda=="C" && $id!=0){ 
+            
+            if (Articulo::where('id_categoria', '=',$id)->exists()) {
+       
+            $articulos = Articulo::with('obtener_imagenes')
+            ->with('obtener_categoria')
+            ->with('obtener_estado_articulo')
+            ->where('reportado','0')
+            ->where('disponibilidad','1')
+            ->where('id_categoria',$id)
+            ->paginate(3);
+        
+            return view('pagina_principal.index', compact(['categorias','articulos']));
+        }
+        else{
+            return view('ERROR.error_busqueda', compact('categorias'),
+                ['mensaje'=>'La categoría no tiene artículos actualmente']);
+        }  
+        }
+
+    }
+
     public function create() /* ME LLEVA AL FORMULARIO PARA INSERTAR UN ARTICULO*/
     {
         $estado_articulo = Estado_Articulo::all();
@@ -156,7 +202,7 @@ class ArticulosController extends Controller
         /* Notifica al usuario que su publicación fue reportada */
         $datos=[
             'contenido'=>"Ponte en contacto con nosotros a este correo para tomar las medidas necesarias en un lapso de 8 días sino será ocultada definitivamente",
-            'correo'=>$articulo->obtener_user->correo,
+            'correo'=>$articulo->obtener_user->email,
             'nombre'=>$articulo->obtener_user->nombre,
             'primer_apellido'=>$articulo->obtener_user->primer_apellido,
             'segundo_apellido'=>$articulo->obtener_user->segundo_apellido,
@@ -164,7 +210,7 @@ class ArticulosController extends Controller
             'estado'=>'reportada',
         ];
 
-        $correoDestino = $articulo->obtener_user->correo;
+        $correoDestino = $articulo->obtener_user->email;
         $correoRemitente = "mercalinshop@gmail.com";
 
         $correo = new EnvioMails($datos);

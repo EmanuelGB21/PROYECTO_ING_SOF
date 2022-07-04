@@ -1,15 +1,11 @@
 @extends('Plantillas_Generales.plantilla_general_admin')
 
 @section('FOTO-DE-PERFIL')
-<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""> <span class="text-decoration-underline">{{ Auth::user()->nombre}}</span></a>
+<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('storage'.'/'.Auth::user()->foto_perfil)}}" alt=""> <span class="badge bg-success">{{ Auth::user()->nombre}}</span></a>
 @endsection
 
 @section('TITULO')
     <title>Tu Perfil</title>
-@endsection
-
-@section('BUSQUEDAS')
-    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></div>
 @endsection
 
 @section('DROPDOWN')

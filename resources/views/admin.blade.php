@@ -11,11 +11,7 @@
 @endsection
 
 @section('FOTO-DE-PERFIL')
-<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/ADMIN.png')}}" alt=""> <span class="text-decoration-underline">Administrador</span></a>
-@endsection
-
-@section('BUSQUEDAS')
-    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></div>
+<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/ADMIN.png')}}" alt=""> <span class="badge bg-danger">Administrador</span></a>
 @endsection
 
 @section('DROPDOWN')
@@ -115,7 +111,7 @@
                             <td>{{$item->nombre_articulo}}</td>
                             <td>{{$item->obtener_user->nombre}} {{$item->obtener_user->primer_apellido}} {{$item->obtener_user->segundo_apellido}}</td>
                             <td>{{$item->obtener_user->telefono}}</td>
-                            <td>{{$item->obtener_user->correo}}</td>
+                            <td>{{$item->obtener_user->email}}</td>
                             <td>
                                 <button class="btn btn-primary btn-sm">Contactar</button>
                                 

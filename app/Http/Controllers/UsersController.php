@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -43,12 +44,16 @@ class UsersController extends Controller
         $user->telefono = $request->telefono;
         $user->correo = $request->correo;
 
-        $user->foto_perfil = $request->foto_perfil;
-
+        if($request->hasFile('foto_perfil')){
+            $data = User::findOrFail($id);
+                
+            Storage::delete('public/'.$data->foto_de_perfil);
+            
+            $user['foto_perfil']=request()->file('foto_perfil')->store('uploads', 'public');
+        }
         $user->save();
-
+        
         return redirect()->back()->with('mensaje','Tus datos se han actualizado con éxito');
-
     }
 
     public function destroy($id){

@@ -1,8 +1,8 @@
-<div class="modal fade" tabindex="-1"  data-bs-backdrop="static" data-bs-keyboard="false" id="edit_direccion">
+<div class="modal fade" tabindex="-1"  data-bs-backdrop="static" data-bs-keyboard="false" id="edit_direccion{{$cliente->id_user}}">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-dark text-light">
-        <h6 class="modal-title">Estas editando tu dirección</h6>
+        <h6 class="modal-title">Estas editando tu dirección {{$cliente->nombre}}</h6>
         <button type="button" class="btn text-light" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
       </div>
       <div class="modal-body">

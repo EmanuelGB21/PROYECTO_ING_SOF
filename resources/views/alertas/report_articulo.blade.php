@@ -1,4 +1,4 @@
-<div class="modal fade"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" id="eliminar_perfil{{$cliente->id_user}}">
+<div class="modal fade" id="reportar{{$articulo->id_articulo}}"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
 
@@ -6,14 +6,13 @@
                 <div class="text-center">
                     <h2 class="text-warning"><i class="fas fa-exclamation-triangle"></i> </h2>
                     <h6 class="mt-4">
-                        ¿Deseas eliminar tu perfil {{$cliente->nombre}}?
+                        ¿Deseas reportar el artículo?
                     </h6>
-                    <form action="{{url('user/'.$cliente->id_user)}}" method="POST">
+                    <form action="{{route('reportar',$articulo->id_articulo)}}" method="POST">
                         @csrf
-                        @method('DELETE')
-
+                        @method('GET')
                         <div class="mt-3">
-                            <button class="btn btn-primary btn-sm">Sí, Eliminar</button>
+                            <button class="btn btn-primary btn-sm">Sí, Reportar</button>
                             <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </form>            
