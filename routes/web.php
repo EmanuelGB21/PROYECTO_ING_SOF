@@ -25,9 +25,9 @@ Route::get('/Ayuda', function () {
 })->name('IR_AYUDA');
 
 
-/* PARTE DEL LOGIN */
+/* PARTE DEL LOGIN DEJAR TAL CUAL ESTÁN*/
 Auth::routes();
-Route::get('/Home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 /* CONTROLADOR ARTICULOS */
 

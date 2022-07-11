@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
  
   <link rel="icon" href="{{asset('imagenes/iconos/icono_pagina.ico')}}">
+  <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
 
   @yield('CSS')
 
@@ -24,7 +25,17 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark panel_inicial">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{{route('pagina_principal')}}">Merca-Lin (mercado en línea)</a>
+        <a class="navbar-brand" href="{{route('pagina_principal')}}">
+          <div class="row">
+            <div class="col-2">
+              <h4 class="animate__animated animate__lightSpeedInLeft"><i class="fas fa-shop"></i></h4>
+            </div>
+            <div class="col-2">
+              <h4 class="animate__animated animate__lightSpeedInRight">Merca-Lín</h4>
+              <h6 class="animate__animated animate__lightSpeedInRight" style="margin-top: -9px; margin-left: 28px;"><i class="fas fa-coins"></i> Compras en Línea</h6>
+            </div>
+          </div>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

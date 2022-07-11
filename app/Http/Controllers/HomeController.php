@@ -35,7 +35,7 @@ class HomeController extends Controller
             
             return view('admin',compact('articulos')); 
 
-        }else{ // SINO, ES UN VENDEDOR
+        }else if(Auth::user()->id_tipo_cuenta==1){ // SINO, ES UN VENDEDOR
         
             if(Auth::user()->estado_cuenta==1){
                 $mis_art = Articulo::with('obtener_imagenes')

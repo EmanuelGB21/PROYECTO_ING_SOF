@@ -4,13 +4,15 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      
       <title>Acerca De Merca-Lín</title>
 
       <link rel="icon" href="{{asset('imagenes/iconos/icono_pagina.ico')}}">
       <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
       <link rel="stylesheet" href="{{asset('css/style.css')}}">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  </head>
+      <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
+    </head>
   <body>
 
     <div class="container-fluid panel_seccundario p-2 fijado">
@@ -20,12 +22,20 @@
               <div class="container-fluid">
                 <a class="navbar-brand text-light" href="{{route('IR_ACERCA_DE')}}">
                   {{--  <img src="" alt="" width="30" height="24" class="d-inline-block align-text-top">  --}}
-                  Merca-Lín (Compras en Línea)
+                  <div class="row">
+                    <div class="col-2">
+                      <h4 class="animate__animated animate__lightSpeedInLeft"><i class="fas fa-shop"></i></h4>
+                    </div>
+                    <div class="col-2">
+                      <h4 class="animate__animated animate__lightSpeedInRight">Merca-Lín</h4>
+                      <h6 class="animate__animated animate__lightSpeedInRight" style="margin-top: -9px; margin-left: 28px;"><i class="fas fa-coins"></i> Compras en Línea</h6>
+                    </div>
+                  </div>
                 </a>
               </div>
             </nav>
         </div>
-        <div class="float-end">
+        <div class="float-end mt-2">
             <nav class="nav p-2 MI_NAV">
               <a class="nav-link text-light boton" href="{{route('pagina_principal')}}">Visitar Sitio <i class="fas fa-arrow-right"></i></a>
             </nav>
@@ -35,7 +45,7 @@
         {{--  CARROUSEL  --}}
     <div class="container-fluid px-0">
 
-      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -71,13 +81,13 @@
 
     <div class="container mt-5 p-4">
      <div class="row">
-      <div class="col-6">
+      <div class="col-sm-4">
         <h3>¿Quienes somos?</h3>
         <img src="{{asset('imagenes/quienes_somos.png')}}" width="200px" alt="">
       </div>
-      <div class="col-6">
-        <h4 class="mt-4"><i class="fas fa-arrow-right"></i> Merca-Lín es un sitio web relacionado con el comercio electrónico dirigido a
-          personas emprendedoras que buscan vender sus articulos por internet.
+      <div class="col-sm-8">
+        <h4 class="mt-4"><i class="fas fa-arrow-right"></i> Somos un sitio web relacionado con el comercio electrónico dirigido a
+          personas emprendedoras que buscan vender sus articulos por internet, así como también permitir que usuarios vengan y compren de manera rápida, sencilla y segura sin salir de sus hogares.
        </h4>
       </div>
      </div>
@@ -86,14 +96,25 @@
     <div class="container mt-5 p-4">
       <div class="row">
         <div class="col-8">
-        <h3>Podes realizar las siguientes funcionalidades</h3>
-        <h4>tan solo por $12 dólares podés:</h4>
-          <br>
-        <p><i class="text-primary fas fa-check"></i> Publicar tus productos</p>
-        <p><i class="text-primary fas fa-check"></i> Comprar otros productos</p>
-        <p><i class="text-primary fas fa-check"></i> Eliminar así como también actualizar tus productos</p>
-        <p><i class="text-primary fas fa-check"></i> Gestionar tu perfil de usuario</p>
+        <h4><i class="fas fa-circle text-primary"></i> Podes realizar las siguientes funciones:</h4>
+        <br>
+        <p><i class="text-primary fas fa-check"></i> Comprar productos de tu interés, con solo iniciar sesión.</p>
+        <p><i class="text-primary fas fa-check"></i> Buscar artículos de interés, ya sea por artículo o dueño del artículo.</p>
+        <p><i class="text-primary fas fa-check"></i> Navegar a través de las diferentes categorías que se ofrecen.</p>
+        <p><i class="text-primary fas fa-check"></i> Ver más detalles sobre un artículo y más.</p>
+        <p><i class="text-primary fas fa-check"></i> Compartir por redes sociales cualquier artículo.</p>
+        <p><i class="text-primary fas fa-check"></i> Descargar una ficha de algún artículo de interés.</p>
+        <p><i class="text-primary fas fa-check"></i> Reportar publicaciones sospechosas de estafas.</p>
+        <p><i class="text-primary fas fa-check"></i> Gestionar tú perfil de usuario.</p>
+        <p><i class="text-primary fas fa-check"></i> Ver los artículos comprados.</p>
 
+        <h4 class="mt-5"> <i class="fas fa-circle text-primary"></i> Además, a tan solo por $12 dólares tendrás la posibilidad de:</h4>
+        <br>
+        <p><i class="text-primary fas fa-check"></i> Publicar productos que desees vender.</p>
+        <p><i class="text-primary fas fa-check"></i> Agregar descuentos a tus artículos.</p>
+        <p><i class="text-primary fas fa-check"></i> Actualizar y/o Eliminar tus productos.</p>
+        <p><i class="text-primary fas fa-check"></i> Descargar diferentes archivos PDF.</p>
+        <p><i class="text-primary fas fa-check"></i> Ver tus artículos vendidos, así como también las ganacias obtenidas.</p>
         </div>
 
         <div class="col-4">
@@ -133,7 +154,14 @@
       politicas de privacidad del sitio
     </div>
 
-    <div>@ derechos reservados 2022, Merca-Lín</div>
+    <div class="container">
+      formulario de contacto
+    </div>
+
+    <div class="container">
+      @ derechos reservados 2022, Merca-Lín
+      REDES SOCIALES, FACEBOOK E INSTAGRAM
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>

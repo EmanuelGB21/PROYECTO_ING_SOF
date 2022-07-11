@@ -15,6 +15,7 @@
 
                             <input type="hidden" name="estado_cuenta" value="1">
                             <input type="hidden" name="id_tipo_cuenta" value="1">
+                            <input type="hidden" name="membresia" value="no">
 
                             <input type="hidden" name="nombre_user" id="nombre_user">
 

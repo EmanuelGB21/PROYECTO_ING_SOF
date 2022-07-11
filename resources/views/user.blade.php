@@ -1,7 +1,10 @@
 @extends('Plantillas_Generales.plantilla_general_admin')
 
 @section('CSS')
-<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
+    
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
+    {{--  PARA PAYPAL  --}}
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
 @endsection
 
 @section('FOTO-DE-PERFIL')
@@ -42,16 +45,24 @@
 @endsection
 
 @section('MENU-LATERAL')    
-    <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
-    <a class="nav-link" href="{{url('articulos/create')}}">
-        <div class="sb-nav-link-icon"><i class="fas fa-upload"></i></div>
-        Publicar Artículo
-    </a>
+    @if (Auth::user()->membresia=="si")
+        <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
+        <a class="nav-link" href="{{url('articulos/create')}}">
+            <div class="sb-nav-link-icon"><i class="fas fa-upload"></i></div>
+            Publicar Artículo
+        </a>
 
-    <a class="nav-link" href="{{route('home')}}">
-    <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
-        Ver Artículos
-    </a>
+        <a class="nav-link" href="{{route('home')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
+            Ver Artículos
+        </a>
+    @else
+        <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
+        <a class="nav-link" href="{{route('home')}}">
+            <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
+            Mis Compras
+        </a>
+    @endif
 @endsection
 
 
@@ -79,11 +90,8 @@
     </div>
     @endif
 
+    @if (Auth::user()->membresia=="si") {{--  SI LA MEMBRESÍA ESTÁ PAGADA  --}}
     <div class="container-fluid p-5">
-       {{--   <h1 class="mt-4">Tus artículos</h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">A continuación se muestran tus artículos {{ Auth::user()->nombre }} <i class="fas fa-arrow-down"></i></li>
-        </ol>  --}}
 
         <div class="row mt-2">
 
@@ -167,11 +175,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
-
-        </div>
-
     </div>
     <div>
         @include('modales.modal_descuento_por_categoria')
@@ -179,10 +182,71 @@
     <div>
         @include('modales.modal_descuento_general')
     </div>
+
+    @else {{--  SINO TIENE MEMBRESÍA MUESTRA SOLO ATÍCULOS COMPRADOS Y SU PERFIL  --}}
+
+        <div class="container-fluid p-5">
+            <div class="row mt-2">
+                <div class="container">
+                    <div class="container-fluid p-2 mb-3">
+                        <div class="row">
+                            <div class="col text-start"> {{--  INICIO  --}}
+                                
+                                <button data-bs-toggle="modal" data-bs-target="#mem{{Auth::user()->id_user}}" class="btn btn-primary">Publicar Artículo</button>
+
+                            </div>
+    
+                            <div class="col"></div>
+    
+                            <div class="col text-end"> {{--  FINAL  --}}
+                                <button class="btn btn-danger">Lista de Artículos comprados en PDF <i class="fas fa-download"></i></button>
+                            </div>
+    
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <b><i class="fas fa-table"></i> Tabla de Artículos Comprados</b>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered" id="tabla">
+                                <thead class="bg-dark text-light py-0">
+                                    <tr>
+                                        <th>Fecha de Compra</th>
+                                        <th>Dueño</th>
+                                        <th>Nombre Artículo</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   {{--   @foreach ($mis_art as $item)  --}}
+                                    <tr>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    </tr>
+                                    {{--  @endforeach  --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{--  MODAL  --}}
+        <div>
+            @include('modales.paypal_enlace')
+        </div>
+    @endif
 @endsection
 
 
 @section('JS')
+    <script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
+    <script src="{{asset('js/membresia_paypal.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="{{asset('js/datatables-simple-demo.js')}}"></script>

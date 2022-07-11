@@ -62,6 +62,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255',],
             'telefono' => ['required', 'int', 'min:8'],
             'estado_cuenta' =>['required','boolean','min:1'],
+            'membresia' => ['required', 'string'],
         ]);
     }
 
@@ -112,6 +113,7 @@ class RegisterController extends Controller
             'telefono' =>$data['telefono'],
             'estado_cuenta' =>$data['estado_cuenta'],
             'password' => Hash::make($contra_temporal),
+            'membresia' => $data['membresia'],
         ]);
 
     }

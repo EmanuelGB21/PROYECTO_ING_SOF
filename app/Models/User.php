@@ -36,11 +36,12 @@ class User extends Authenticatable
         'primer_apellido',
         'segundo_apellido',
         'fecha_registro',
-        'correo',
+        'email',
         'telefono',
         'foto_perfil',
         'password',
         'estado_cuenta',
+        'membresia',
     ];
 
     /**
