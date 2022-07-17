@@ -10,10 +10,11 @@
         </div>
         <div class="modal-body">
             <div class="mb-5 text-center mt-3">
-                <h6><i class="fas fa-coins"></i> Debes pagar para poder publicar artículos</h6>
+                <h6><i class="fas fa-coins"></i> {{Auth::user()->nombre}} debes pagar para poder publicar artículos</h6>
             </div>
             {{--  BOTON DE PAYPAL  --}}
             <div id="smart-button-container">
+              {{--  <input type="hidden" value="{{Auth::user()->email}}" id="correo">  --}}
                 <div class="mt-2" id="paypal-button-container"></div>
             </div>
             {{--  TERMINA PARTE DEL BOTON PAYPAL  --}}

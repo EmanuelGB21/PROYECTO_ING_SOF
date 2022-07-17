@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Mail\EnvioMails;
-use App\Mail\Reportado;
 
 use App\Models\Articulo;
 use App\Models\Categoria;
@@ -11,7 +10,7 @@ use App\Models\Estado_Articulo;
 use App\Models\Imagen;
 use Illuminate\Http\Request;
 
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -175,7 +174,6 @@ class ArticulosController extends Controller
         $articulo->precio = $request->precio;
         $articulo->cantidad = $request->cantidad;
         $articulo->descripcion = $request->descripcion;
-        $articulo->descuento = 0;
        
         $articulo->save();
 
@@ -225,9 +223,25 @@ class ArticulosController extends Controller
 
     public function ficha_articulo_pdf($id){
         
+        date_default_timezone_set('America/Costa_Rica');
+        $fecha_actual=date('Y-m-d');
         $ficha_articulo = Articulo::findOrFail($id);
 
-        $pdf = PDF::loadView('PDF.ficha_articulo',compact(['ficha_articulo']));
+        $pdf = PDF::loadView('PDF.ficha_articulo',compact(['ficha_articulo','fecha_actual']));
+        
+        return $pdf->stream('Ficha del Articulo '.$ficha_articulo->nombre_articulo);
+    }
+
+    /* LISTA DE ARTÍCULOS DE X DUEÑO */
+
+    public function lista_articulos_pdf($dato){
+
+        date_default_timezone_set('America/Costa_Rica');
+        $fecha_actual=date('Y-m-d');
+
+        $lista = Articulo::where('id_user',$dato)->get();
+
+        $pdf = PDF::loadView('PDF.lista_articulos',compact(['lista','fecha_actual']));
         
         return $pdf->stream('');
     }

@@ -2,16 +2,14 @@
 
 use App\Http\Controllers\ArticulosController;
 use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\ImagenesController;
+use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-
-/* Route::get('/ERROR', function () {
-    return view('ERROR.error_busqueda');
-})->name('error'); */
 
 
 /* RUTAS DE LA PÁGINA WEB */
@@ -38,6 +36,7 @@ Route::get('/', [ArticulosController::class, 'index'])->name('pagina_principal')
 Route::get('/reportar/{id}', [ArticulosController::class, 'reportar'])->name('reportar');
 
 Route::get('ficha-articulo-en-pdf/{id}', 'App\Http\Controllers\ArticulosController@ficha_articulo_pdf')->name('GENERAR_PDF');
+Route::get('Lista-articulos/{datos}', 'App\Http\Controllers\ArticulosController@lista_articulos_pdf')->name('LISTA_ART_PDF_USER');
 
 Route::get('/descuentos', [ArticulosController::class, 'descuentos'])->name('descuentos');
 
@@ -60,3 +59,11 @@ Route::resource('direcciones',DireccionesController::class);
 
 /* IMAGENES */
 Route::resource('imagenes_ruta',ImagenesController::class);
+
+
+/* CUANDO PAGA CON PAYPAL GENERA FACTURA */
+Route::get('/Factura-Membresia',[PayPalController::class,'getFacturaMembresia'])->name('paypal');
+
+/* PAGINA DE CONTACTO */
+
+Route::resource('contacto-pagina', ContactoController::class);

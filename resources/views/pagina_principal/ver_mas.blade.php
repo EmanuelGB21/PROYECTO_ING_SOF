@@ -154,11 +154,11 @@
             <div class="card-body  mt-4 text-end">
               <label style="font-size:17px;"><i class="fas fa-share"></i><b> Compartir con:</b></label>
 
-                <a href="WhatsApp"><i style="font-size:20px; color:rgb(31, 179, 92)"
+                <a href="https://api.whatsapp.com/send?text={{Request::fullUrl()}}" target="__blank"><i style="font-size:20px; color:rgb(31, 179, 92)"
                     class="fab fa-whatsapp-square"></i></a>
-                <a href="Facebook"><i style="font-size:20px; color:rgb(66, 103, 178)"
+                <a href="http://www.facebook.com/sharer.php?u={{Request::fullUrl()}}&t=pagina de desarrollo web" target="__blank"><i style="font-size:20px; color:rgb(66, 103, 178)"
                     class="fab fa-facebook-square"></i></a>
-                <a href="twitter"><i style="font-size:20px; color:rgb(29, 161, 242)"
+                <a href="https://twitter.com/intent/tweet?text=MIEpresa&url={{Request::fullUrl()}}&via=Empresa&hashtags=#miempresa" target="__blank"><i style="font-size:20px; color:rgb(29, 161, 242)"
                     class="fab fa-twitter-square"></i></a>
             </div>
 
@@ -171,15 +171,14 @@
 
     <div class="float-end">
       <!-- DATOS DEL PROPIETARIO -->
-
       <div class="card ficha_propietario">
         <div class="card-header text-center">
-          <img class="rounded-circle w-75" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+          <img class="rounded-circle w-75" src="{{asset('storage').'/'.$articulo->obtener_user->foto_perfil}}" alt="">
         </div>
         <div class="card-body">
           <p class="card-title text-muted mb-3"><strong>Dueño: {{$articulo->obtener_user->nombre}} {{$articulo->obtener_user->primer_apellido}} {{$articulo->obtener_user->segundo_apellido}}</strong></p>
           
-            <a href="#!" class="card-text"><i style="font-size:17px; color:rgb(31, 179, 92)" class="fab fa-whatsapp-square"></i>
+            <a target="__blank" href="https://api.whatsapp.com/send?phone=506{{$articulo->obtener_user->telefono}}&text=Hola {{$articulo->obtener_user->nombre}}, quisiera saber más detalles de un articulo publicado en la página Merca-Lín" class="card-text"><i style="font-size:17px; color:rgb(31, 179, 92)" class="fab fa-whatsapp-square"></i>
             <b>Contactar por WhatsApp</b></a>
             
 
@@ -215,6 +214,7 @@
     </div>
   </div>
   <br><br>
+
   {{--  MODAL DE LAS FOTOS  --}}
   @foreach ($articulo->obtener_imagenes as $item)
   <div id="my_modal{{$loop->index}}" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="my_modal{{$loop->index}}" aria-hidden="true">
@@ -223,8 +223,8 @@
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <img class="w-100" src="{{asset('storage'.'/'.$item->ruta_imagen)}}" alt="">
+        <div class="modal-body text-center">
+          <img class="w-50" src="{{asset('storage'.'/'.$item->ruta_imagen)}}" alt="">
         </div>
       </div>
     </div>

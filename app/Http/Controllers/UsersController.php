@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -42,7 +43,7 @@ class UsersController extends Controller
         $user->primer_apellido = $request->primer_apellido;
         $user->segundo_apellido = $request->segundo_apellido;
         $user->telefono = $request->telefono;
-        $user->correo = $request->correo;
+        $user->email = $request->email;
 
         if($request->hasFile('foto_perfil')){
             $data = User::findOrFail($id);
@@ -64,7 +65,5 @@ class UsersController extends Controller
         return redirect()->route('home')->with('mensaje','Tu cuenta se ha eliminado con éxito');
 
     }
-
-
 
 }

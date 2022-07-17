@@ -11027,12 +11027,6 @@ body {
   flex-shrink: 0;
 }
 
-.sb-sidenav-dark {
-  background-color: #212529;
-  background-color: #2A3132;
-  color: rgba(255, 255, 255, 0.5);
-}
-
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
   color: rgba(255, 255, 255, 0.25);
 }
@@ -11290,4 +11284,10 @@ body{
   left: 0;
   bottom: 0;
   cursor: pointer; /* manita de selección al hacer hover */
+}
+
+
+.sb-sidenav-dark {
+  background-color: #212529;
+  color: rgba(255, 255, 255, 0.5);
 }

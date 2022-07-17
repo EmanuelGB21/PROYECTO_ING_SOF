@@ -1,5 +1,4 @@
- 
-function initPayPalButton() {
+ function initPayPalButton() {
   var orderDescription = 'Compra de membresía de la página Merca-Lín';
   var shipping = 0;
   var quantity = 1;
@@ -67,12 +66,22 @@ function initPayPalButton() {
 
   onApprove: function(data, actions) {
     return actions.order.capture().then(function(orderData) {
-      //console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-      Swal.fire(
-        'La compra se efectuó correctamente!',
-        'Se envió la factura a tu correo electrónico',
-        'success'
-      )
+     
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'La compra se ha efectuado correctamente!',
+        text: 'Ahora puedes publicar en nuestro sitio web tus artículos',
+        showConfirmButton: true,
+        /* timer: 1500 */
+      }).then(function(isConfirm){
+
+        if (isConfirm) {
+           window.location.href ="/Factura-Membresia"; /* REDIRIGO A LA VISTA DONDE GENERO CORREO Y MANDO FACTURA */
+        }
+
+      });
+     
     });
   },
   onError: function(err) {

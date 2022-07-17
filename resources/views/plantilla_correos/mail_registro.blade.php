@@ -26,6 +26,19 @@
             <p>El artículo {{$mensaje['nombre_articulo']}} fue reportado como posible estafa</p>
             <p>{{$mensaje['contenido']}}</p>
         @endif
+
+        @if ($mensaje['estado']=="membresia")
+        <p>Hola, {{$mensaje['nombre_completo']}}</p>    
+        <p>{{$mensaje['contenido']}}</p>
+        <p>{{$mensaje['contenido_2']}}</p>
+        <p>La compra fue realizada el {{$mensaje['fecha_de_pago_inicial']}}</p>
+        <p>*<b>Recuerda que la memebresía se renueva cada mes por el mismo monto</b></p>
+        
+        @endif
+
+        @if ($mensaje['estado']=="contactar")
+            <p>{{$mensaje['contenido']}}</p>  
+        @endif
     
         
     </body>

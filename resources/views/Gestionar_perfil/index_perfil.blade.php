@@ -86,8 +86,9 @@
                             <div class="mt-3">
                               <h4>{{$cliente->nombre_user}}</h4>
                               <p class="text-secondary mb-1">Vendedor en la página Merca-Lín</p>
-                              <p class="text-muted font-size-sm">{{$cliente->obtener_direccion->pais}}, {{$cliente->obtener_direccion->provincia}}, {{$cliente->obtener_direccion->ciudad}}</p>
-                              
+                              @foreach ($cliente->obtener_direccion as $item)
+                              <p class="text-muted font-size-sm">{{$item->pais}}, {{$item->provincia}}, {{$item->ciudad}}</p> 
+                              @endforeach
                               <a class="btn btn-secondary btn-sm" href="{{ route('password.request') }}">
                                 Cambiar contraseña
                               </a>
@@ -159,7 +160,9 @@
                               <h6 class="mb-0">Dirección</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                               {{$cliente->obtener_direccion->provincia}}, {{$cliente->obtener_direccion->ciudad}} {{$cliente->obtener_direccion->direccion_actual}}
+                               @foreach ($cliente->obtener_direccion as $item)
+                               {{$item->provincia}}, {{$item->ciudad}} {{$item->direccion_actual}}
+                               @endforeach
                             </div>
                           </div>
                           <hr>

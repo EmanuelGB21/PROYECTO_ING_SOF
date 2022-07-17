@@ -15,6 +15,24 @@
     </head>
   <body>
 
+    @if (session('mensaje'))
+    <div aria-live="polite" aria-atomic="true" class="position-relative" data-bs-delay="100">         
+        <div class="toast-container position-absolute top-0 end-0 p-3" style="z-index:11">
+            <div class="toast show" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
+            
+                <div class="toast-header">
+                <strong class="me-auto"><i class="fas fa-info-circle text-primary"></i> Notificación</strong>
+                <small class="text-muted">justo ahora</small>
+                <button type="button" onclick="cerrar()" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                <p class="text-success"><i class="fas fa-check-circle text-success"></i> {{session('mensaje')}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+     @endif
+     
     <div class="container-fluid panel_seccundario p-2 fijado">
       <div class="clearfix">
         <div class="float-start">
@@ -148,20 +166,101 @@
       </div>
 
     </div>
-    
-    
-    <div class="container">
-      politicas de privacidad del sitio
+
+    <div class="container p-5 mt-4">
+      <div class="container mb-5 text-center">
+        <h3>Políticas de privacidad importantes:</h3>
+      </div>
+      <div class="container">
+        
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Cada usuario tiene cuentas independientes.</p>
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Los datos que se solicitan al registrarse solo serán usados para términos de login.</p>
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> La dirección de correo electrónico es para hacer la entrega de los artículos sin necesidad de que los recojas presencialmente.</p>
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> La información dada por cada usuario quedará entre Merca-Lín y él.</p>
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Somos una empresa que se toma con seriedad las cosas.</p>
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Solo se permiten pagos mediante PayPal.</p>
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Tener en cuenta que trabajamos con dólares.</p>
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Nos tomamos muy enserio cualquier tipo de estafas.</p>
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> El dinero por ventas de tus artículos será intocable por parte de Merca-Lín, es decir solo para tí</p>
+        
+      </div>
     </div>
 
-    <div class="container">
-      formulario de contacto
+    {{--  formulario de contacto  --}}
+    <div class="container-fluid p-5 mt-4">
+
+      <div class="card">
+        <div class="card-header text-center bg-white">
+          <h3><i class="fas fa-envelope"></i> Contáctanos</h3>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="container text-center mt-4">
+              <img class="w-50" src="{{asset('imagenes/iconos/logo6.jpeg')}}" alt="">
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="container mt-5 mb-3">
+              <form action="{{url('contacto-pagina')}}" method="POST">
+                @csrf
+  
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Ingresa tu correo electrónico:</label>
+                  <input type="email" class="form-control" name="email" placeholder="@gmail.com">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label">Asunto:</label>
+                  <textarea class="form-control" name="contenido" placeholder="Ingresa tu duda o sugerencia acá" rows="5"></textarea>
+                </div>
+  
+                <div class="text-center mt-3 mb-3">
+                  <button class="btn btn-primary rounded-pill">Enviar</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+
     </div>
 
-    <div class="container">
-      @ derechos reservados 2022, Merca-Lín
-      REDES SOCIALES, FACEBOOK E INSTAGRAM
+   {{--  footer  --}}
+   <footer class="text-center text-light bg-dark">
+    <!-- Grid container -->
+    <div class="container pt-4">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        <!-- Facebook -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-light m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+ 
+        <!-- Instagram -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-light m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </section>
+      <!-- Section: Social media -->
     </div>
+    <!-- Grid container -->
+    <!-- Copyright -->
+    <div class="text-center text-light bg-dark">
+      <p class="text-light p-2">@ Copyright 2022 Merca-Lín <a href="#!">politicas de privacidad</a></p>
+    </div>
+    <!-- Copyright -->
+  </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>

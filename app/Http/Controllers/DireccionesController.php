@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Direccion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DireccionesController extends Controller
@@ -14,9 +15,10 @@ class DireccionesController extends Controller
     {
         $direccion = new Direccion();
 
-        $direccion->codigo_postal = $direccion->codigo_postal;
+        $direccion->id_user = Auth::user()->id_user;
+        $direccion->codigo_postal = $request->codigo_postal;
         $direccion->pais=$request->pais;
-        $direccion->provincia = $request->provinicia;
+        $direccion->provincia = $request->provincia;
         $direccion->ciudad = $request->ciudad;
         $direccion->direccion_actual = $request->direccion_actual;
 

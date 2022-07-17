@@ -103,10 +103,14 @@
                             <a href="{{url('articulos/create')}}" class="btn btn-primary">+ Nuevo Artículo</a>
                         </div>
 
-                        <div class="col"></div>
+                        <div class="col">
+                           
+                        </div>
 
                         <div class="col text-end"> {{--  FINAL  --}}
-                            <button class="btn btn-danger">Lista de Artículos PDF <i class="fas fa-download"></i></button>
+                           
+                            <a target="__blank" href="{{route('LISTA_ART_PDF_USER',Auth::user()->id_user)}}" class="btn btn-danger">Lista de Artículos PDF <i class="fas fa-download"></i></a>
+
                         </div>
 
                     </div>
@@ -176,12 +180,6 @@
             </div>
         </div>
     </div>
-    <div>
-        @include('modales.modal_descuento_por_categoria')
-    </div>
-    <div>
-        @include('modales.modal_descuento_general')
-    </div>
 
     @else {{--  SINO TIENE MEMBRESÍA MUESTRA SOLO ATÍCULOS COMPRADOS Y SU PERFIL  --}}
 
@@ -236,11 +234,74 @@
                 </div>
             </div>
         </div>
-        {{--  MODAL  --}}
-        <div>
-            @include('modales.paypal_enlace')
+    @endif
+    {{--  MODALES  --}}
+
+    <div>
+        @include('modales.modal_descuento_por_categoria')
+    </div>
+    
+    <div>
+        @include('modales.modal_descuento_general')
+    </div>
+
+    <div>
+        @include('modales.paypal_enlace')
+    </div>
+
+    {{--  PREGUNTO SI HAY QUE CARGAR MODAL DESDE INICIO O NO  --}}
+    @if($direccion=="falta")
+    
+        <div style="background-color: rgba(0,0,0, 0.5) !important;" class="modal" id="modal_registro_direccion" tabindex="-1"  data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-light text-center">
+                <h6 class="modal-title">Registra tu Dirección para continuar</h6>
+                </div>
+                <div class="modal-body">
+                <form action="{{url('direcciones')}}" method="POST">
+                    @csrf
+                    <input id="input_direccion" type="hidden" value="{{$direccion}}">
+                    
+                    <div class="input-group mb-3">
+                    <span class="input-group-text">Código Postal: </span>
+                    <input type="number" name="codigo_postal" class="form-control">
+                    </div>
+        
+                    <div class="input-group mb-3">
+                    <span class="input-group-text">País: </span>
+                    <input type="text" name="pais" value="Costa Rica" readonly class="bg-white form-control">
+                    </div>
+        
+                    <div class="input-group mb-3">
+                    <span class="input-group-text">Provincia: </span>
+                    <select name="provincia" class="form-select">
+                        @foreach ($provincias as $prov)
+                            <option value="{{$prov}}">{{$prov}}</option>
+                        @endforeach
+                    </select>
+                    </div>
+        
+                    <div class="input-group mb-3">
+                    <span class="input-group-text">Ciudad: </span>
+                    <input type="text" name="ciudad" class="form-control">
+                    </div>
+        
+                    <div class="input-group mb-3">
+                    <span class="input-group-text">Dirección Actual: </span>
+                    <input type="text" name="direccion_actual" class="form-control">
+                    </div>
+        
+                    <div class="text-end">
+                    <button class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Registrar</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            </div>
         </div>
     @endif
+
 @endsection
 
 
@@ -254,7 +315,10 @@
         function cerrar(){
             $('.toast').hide();
         }
-
+        var direccion = document.getElementById('input_direccion').value;
+        if(direccion=="falta"){
+            $('#modal_registro_direccion').show();
+        }
     </script>
 @endsection
 
