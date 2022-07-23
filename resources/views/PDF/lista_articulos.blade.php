@@ -63,7 +63,7 @@
 
 
     <div class="container-fluid text-center mb-5">
-        <h5>Lista de artículos publicados</h5>
+        <h5>Lista de artículos publicados {{count($lista)}}</h5>
     </div>
 
     <div class="container-fluid">

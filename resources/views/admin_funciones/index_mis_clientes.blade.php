@@ -11,7 +11,7 @@
 @endsection
 
 @section('FOTO-DE-PERFIL')
-<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/ADMIN.png')}}" alt=""> <span class="badge bg-danger">Administrador</span></a>
+<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/iconos/logo1.jpeg')}}" alt=""> <span class="badge bg-danger">Administrador</span></a>
 @endsection
 
 @section('DROPDOWN')
@@ -30,7 +30,13 @@
 
 @section('MENU-LATERAL')    
     <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
+    
     <a class="nav-link" href="{{route('home')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
+            Ver Ganancias
+    </a>
+    
+    <a class="nav-link" href="{{route('ver_reportados')}}">
         <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle"></i></div>          
         Arículos reportados
     </a>
@@ -40,20 +46,18 @@
         Gestionar Categorías
     </a>
 
-    <a class="nav-link" href="#">
-        <div class="sb-nav-link-icon"><i class="fas fa-file-pdf"></i></div>
-            Generar Reportes **
-    </a>
-        
-    <a class="nav-link" href="#">
-        <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
-            Ganancias **
-    </a>
-
     <a class="nav-link" href="{{route('MIS_CLIENTES')}}">
         <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
             Mis clientes
     </a>
+
+    <div class="sb-sidenav-menu-heading">Tramitar Facturas</div>
+
+    <a class="nav-link" href="{{route('SECC_FACT')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div>
+            Facturas
+    </a>
+    
 @endsection
 
 
@@ -86,34 +90,57 @@
     <div class="container mt-5"></div>
 
     <div class="container mt-5 p-5">
-       <div class="card">
+       <div class="card shadow">
         <div class="card-header">
-            <i class="fas fa-users"></i> Mis Clientes
+            <i class="fas fa-users"></i> Mis Clientes: {{$clientes->count()}}
         </div>
         <div class="card-body">
             <table class="table table-striped table-bordered" id="tabla">
                 <thead class="bg-dark text-light text-center">
                     <tr>
-                        <th>Fecha de Registro</th>
-                        <th>Nombre</th>
-                        <th>Teléfono</th>
-                        <th>Correo</th>
-                        <th>Vence</th>
+                        <th>Fecha Registro</th>
+                        <th>Nombre Cliente</th>
+                        <th>Tipo de Cliente</th>
+                        <th colspan="2">Información de contacto</th>
+                        <th colspan="2">Membresía Vence</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($clientes as $item)
                         <tr>
-                            <td>{{$item->fecha_registro}}</td>
-                            <td>{{$item->nombre}} {{$item->primer_apellido}} {{$item->segundo_apellido}}</td>
-                            <td>{{$item->telefono}}</td>
-                            <td>{{$item->email}}</td>
-                            <td>vence tal fecha</td>
-                
-                            <td>
-                                <button class="btn btn-primary btn-sm">Contactar</button> 
-                                <button class="btn btn-danger btn-sm">Estado</button>
+                            <td style="width: 100px">{{$item->fecha_registro}}</td>
+                            <td style="width: 80px">{{$item->nombre}} {{$item->primer_apellido}} {{$item->segundo_apellido}}</td>
+                            @if ($item->id_tipo_cuenta==1)
+                                <td style="width: 80px">Comprador y Vendedor</td>
+                            @else
+                                <td style="width: 80px">Comprador</td>
+                            @endif
+                           
+                            <td colspan="2">
+                               <i class="fas fa-envelope"></i> {{$item->email}} <br>
+                               <i class="fas fa-phone"></i> {{$item->telefono}}
+                            </td>
+
+                            @if ($item->membresia=="no")
+                            <td  colspan="2">No paga</td>    
+                            @else
+                            @php
+                                date_default_timezone_set('America/Costa_Rica');
+
+                                $fechaAct= new DateTime(date('Y-m-d')); 
+                                $fechaRenov= new DateTime($item->fecha_renovacion);
+                                
+                                $dias = $diff = $fechaAct->diff($fechaRenov); 
+
+                                $dias = $fechaAct->diff($fechaRenov)->format('%r%a');
+                            @endphp
+                            <td colspan="2">Renueva dentro de {{$dias}} días</td>
+                            @endif
+                            
+                            <td class="text-center">
+                                <button data-bs-toggle="modal" data-bs-target="#contactar{{$item->id_user}}" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Contactar</button> 
+                                @include('modales.contactar_clientes')
                             </td>
                         </tr>
                     @endforeach

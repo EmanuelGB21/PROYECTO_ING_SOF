@@ -50,6 +50,17 @@
     <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
         Ver Artículos
     </a>
+
+    <div class="sb-sidenav-menu-heading">Sección de entregas y compras</div>
+    <a class="nav-link" href="{{route('ENTREGAS')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-handshake"></i></div>
+        Entregas
+    </a>
+  
+    <a class="nav-link" href="{{route('MIS_COMPRAS')}}">
+    <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
+        Mis compras
+    </a>
 @endsection
 
 
@@ -84,7 +95,7 @@
             @csrf
             <div class="col-1"></div>
             <div class="col-9">
-                <div class="card FORM_REG_ART">
+                <div class="card FORM_REG_ART shadow">
 
                     <div class="card-header text-center rounded-pill bg-dark text-light">
                         <h6 class="mt-1"><i class="fas fa-clipboard"></i> Formulario de Registro de Artículos</h6>

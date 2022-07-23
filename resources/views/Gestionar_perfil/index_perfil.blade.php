@@ -38,16 +38,36 @@
 @endsection
 
 @section('MENU-LATERAL')    
-    <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
-    <a class="nav-link" href="{{url('articulos/create')}}">
-        <div class="sb-nav-link-icon"><i class="fas fa-upload"></i></div>
-        Publicar Artículo
-    </a>
+  @if (Auth::user()->membresia=="si")
+  <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
+  <a class="nav-link" href="{{url('articulos/create')}}">
+      <div class="sb-nav-link-icon"><i class="fas fa-upload"></i></div>
+      Publicar Artículo
+  </a>
 
-    <a class="nav-link" href="{{route('home')}}">
-    <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
-        Ver Artículos
-    </a>
+  <a class="nav-link" href="{{route('home')}}">
+  <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
+      Ver Artículos
+  </a>
+
+  <div class="sb-sidenav-menu-heading">Sección de entregas y compras</div>
+  <a class="nav-link" href="{{route('ENTREGAS')}}">
+      <div class="sb-nav-link-icon"><i class="fas fa-handshake"></i></div>
+      Entregas
+  </a>
+
+  <a class="nav-link" href="{{route('MIS_COMPRAS')}}">
+  <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
+      Mis compras
+  </a>
+
+  @else
+  <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
+  <a class="nav-link" href="{{route('home')}}">
+      <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
+      Mis Compras
+  </a>
+  @endif
 @endsection
 
 
@@ -79,13 +99,19 @@
           
                   <div class="row gutters-sm">
                     <div class="col-md-4 mb-3">
-                      <div class="card">
+
+                      <div class="card shadow">
                         <div class="card-body">
                           <div class="d-flex flex-column align-items-center text-center">
                             <img src="{{asset('storage').'/'.$cliente->foto_perfil}}" class="rounded-circle" width="150">
                             <div class="mt-3">
                               <h4>{{$cliente->nombre_user}}</h4>
-                              <p class="text-secondary mb-1">Vendedor en la página Merca-Lín</p>
+
+                              @if ($cliente->id_tipo_cuenta==1)
+                              <p class="text-secondary mb-1">Vendedor(a) en la página Merca-Lín</p>
+                              @else
+                              <p class="text-secondary mb-1">Comprador(a) en la página Merca-Lín</p>
+                              @endif
                               @foreach ($cliente->obtener_direccion as $item)
                               <p class="text-muted font-size-sm">{{$item->pais}}, {{$item->provincia}}, {{$item->ciudad}}</p> 
                               @endforeach
@@ -99,25 +125,28 @@
                           </div>
                         </div>
                       </div>
-                      <div class="card mt-3">
+
+                      <div class="card mt-3 shadow">
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0"><i class="fas fa-check"></i> Artículos publicados</h6>
-                            <span class="text-secondary">10</span>
+                            <h6 class="mb-0"><i class="fas fa-check"></i> Total de Artículos Publicados</h6>
+                              <span class="text-secondary">{{$total_mis_art_publicados}}</span>
                           </li>
                           <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0"><i class="fas fa-check"></i> Articulos vendidos</h6>
-                            <span class="text-secondary">10</span>
+                            <h6 class="mb-0"><i class="fas fa-check"></i> Total de Articulos Vendidos</h6>
+                            <span class="text-secondary">{{$total_vendidos}}</span>
                           </li>
                           <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0"><i class="fas fa-coins"></i> Ganancia en Ventas</h6>
-                            <span class="text-secondary">$ 340</span>
+                            <span class="text-secondary">$ {{$cliente->ganancias}}</span>
                           </li>
                         </ul>
                       </div>
+
                     </div>
+
                     <div class="col-md-8">
-                      <div class="card mb-3">
+                      <div class="card mb-3 shadow">
                         <div class="card-body">
                           <div class="row">
                             <div class="col-sm-3">
@@ -177,10 +206,25 @@
         
                       <div class="row gutters-sm">
                         <div class="col-sm-6 mb-3">
-                          <div class="card h-100">
+                          <div class="card h-100 shadow">
                             <div class="card-body text-center">
-                              <button class="btn btn-danger">Lista de artículos publicados PDF</button>
-                             {{--   <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
+                              @if ($cliente->membresia == "si")
+                          
+                                @php
+                                  date_default_timezone_set('America/Costa_Rica');
+
+                                  $fechaAct= new DateTime(date('Y-m-d')); 
+                                  $fechaRenov= new DateTime($cliente->fecha_renovacion);
+                                  
+                                  $dias = $diff = $fechaAct->diff($fechaRenov); 
+
+                                  $dias = $fechaAct->diff($fechaRenov)->format('%r%a');
+                                @endphp
+                                <span style="font-size: 19px" class="badge bg-success">Membresía expira en {{$dias}} días</span>
+                              @else
+                              <span style="font-size: 19px" class="badge bg-warning">No paga</span>
+                              @endif
+                              {{--   <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
                               <small>Web Design</small>
                               <div class="progress mb-3" style="height: 5px">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
@@ -205,9 +249,17 @@
                           </div>
                         </div>
                         <div class="col-sm-6 mb-3">
-                          <div class="card h-100">
+                          <div class="card h-100 shadow">
                             <div class="card-body text-center">
-                              <button class="btn btn-danger">Lista de artículos vendidos PDF</button>
+
+                              <form target="__blank" action="{{route('MIS_ART_VENDIDOS')}}" method="POST">
+                                @csrf
+                                @method('GET')
+                                <input type="hidden" name="array_art_vendidos" value="{{$vendidos}}">
+                                <input type="hidden" name="total_vendidos" value="{{$total_vendidos}}">
+                                <button class="btn btn-danger">Lista de artículos vendidos PDF</button>
+                              </form>
+
                              {{--   <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
                               <small>Web Design</small>
                               <div class="progress mb-3" style="height: 5px">

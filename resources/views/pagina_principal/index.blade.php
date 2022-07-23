@@ -24,24 +24,50 @@
         </li>
 
         <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-light MENU" href="#" id="navbarDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-plus"></i> Información
-        </a>
+            <a class="nav-link dropdown-toggle text-light MENU" href="#" id="navbarDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-plus"></i> Información
+            </a>
 
-        <ul class="dropdown-menu panel_seccundario" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item text-light SUB_MENU" target="_blank" href="{{route('IR_ACERCA_DE')}}"><i class="fas fa-info-circle"></i> Acerca de</a></li>
-            <li><a class="dropdown-item text-light SUB_MENU" href="{{route('IR_AYUDA')}}"><i class="fas fa-question-circle"></i> Ayuda</a></li>
-        </ul>
+            <ul class="dropdown-menu panel_seccundario" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item text-light SUB_MENU" target="_blank" href="{{route('IR_ACERCA_DE')}}"><i class="fas fa-info-circle"></i> Acerca de</a></li>
+                <li><a class="dropdown-item text-light SUB_MENU" href="{{route('IR_AYUDA')}}"><i class="fas fa-question-circle"></i> Ayuda</a></li>
+            </ul>
         </li>
+
     </nav>  
 @endsection
 
 @section('END')
     <nav class="nav"> 
-        <li class="nav-item">
-            <a class="nav-link text-light MENU" href="{{route('home')}}"><i class="fas fa-user-circle"></i> Iniciar Sesión</a>
-        </li>
+        @if (Auth::guest())
+            <li class="nav-item">
+                <a class="nav-link text-light MENU" href="{{route('home')}}"><i class="fas fa-user-circle"></i> Iniciar Sesión</a>
+            </li>    
+        @else
+            
+           <li class="nav-item px-2">
+                <a class="btn btn-dark text-light" href="{{route('home')}}"><i class="fas fa-user-circle"></i> Mi perfil</a>
+           </li>
+
+            <li class="nav-item">
+                <a class="btn btn-dark text-light position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <i class="fas fa-shopping-cart "></i> 
+                    <span class="position-absolute top-0 start-98 translate-middle badge rounded-pill bg-danger">
+                        {{ \Cart::getTotalQuantity()}}
+                    </span>
+                </a>
+            </li>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel">Tu carrito de compras</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    @include('partials.cart-drop')
+                </div>
+            </div>  
+        @endif    
     </nav>
 @endsection
 
@@ -74,7 +100,7 @@
     <div class="row row-cols-1 row-cols-md-3 p-5">
 
         @foreach($articulos as $item)
-        <div class="col">
+        <div class="col mb-5">
             <div class="card  carta-producto box">
                 
                 @if ($item->obtener_estado_articulo->estado_articulo=="Nuevo")
@@ -98,12 +124,7 @@
 
                     <div class=" text-center">
                         <div id="v{{$item->id_articulo}}" class="carousel slide" data-bs-ride="carousel">
-                            {{--  <div class="carousel-indicators">
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>  --}}
-
+   
                             <div class="carousel-inner">
                               
                                 @foreach ($item->obtener_imagenes as $img=>$VALOR)
@@ -111,36 +132,57 @@
                                         <div class="carousel-item active">
                                             <img src="{{asset('storage').'/'.$VALOR->ruta_imagen}}" class="w-75 IMAGENES">
                                         </div> 
-                                   {{--   @else
-                                        <div class="carousel-item">
-                                            <img src="{{asset('storage').'/'.$VALOR->ruta_imagen}}" class="w-75 IMAGENES">
-                                        </div>  --}}
                                     @endif
-
                                 @endforeach 
                             </div>
-
-                           {{--   <button class="carousel-control-prev" type="button" data-bs-target="#v{{$item->id_articulo}}" data-bs-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Previous</span>
-                            </button>
-
-                            <button class="carousel-control-next" type="button" data-bs-target="#v{{$item->id_articulo}}" data-bs-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Next</span>
-                            </button>  --}}
                           </div>
                     </div>
-
                     <hr>
-                    
                     <div class="clearfix">
                         <div class="float-start">
                             <p class="text-muted"><b>{{$item->nombre_articulo}}</b></p>
                         </div>
+
+                        {{--  PARA EL CARRITO DE COMPRAS BOTON --}}
+
                         <div class="float-end">
-                            <button class="btn btn-sm btn-dark text-light"><i class="fas fa-shopping-cart"></i></button>
+                            <form action="{{route('cart.store')}}" method="POST">
+                                @csrf
+
+                                <input type="hidden" value="{{ $item->id_articulo }}" id="id" name="id">
+                                <input type="hidden" value="{{ $item->nombre_articulo }}" id="name" name="name">
+                                
+                                {{--  SI TRAE DESCUENTO APLICARLO SINO NO  --}}
+                                @if ($item->descuento!=0)
+                                    @php
+                                        $precio=$item->precio;
+                                        $descuento=$item->descuento;
+
+                                        $operacion=100-$descuento;
+                                        $resultado=$precio*($operacion/100);
+                                    @endphp
+
+                                    <input type="hidden" value="{{ $resultado }}" id="price" name="price">
+                                @else    
+                                    <input type="hidden" value="{{ $item->precio }}" id="price" name="price"> 
+                                @endif
+                                
+                                {{--  AGARRO UNA IMAGEN PARA ENVIAR DE CADA ATRÍCULO  --}}
+                                @foreach ($item->obtener_imagenes as $img=>$VALOR)
+                                    @if ($img==0)
+                                        <input type="hidden" value="{{ $VALOR->ruta_imagen }}" id="img" name="img">
+                                    @endif
+                                @endforeach
+                                <input type="hidden" value="{{ $item->obtener_categoria->nombre_categoria }}" id="slug" name="slug">
+                                <input type="hidden" value="1" id="quantity" name="quantity">
+                                <input type="hidden" value="{{$item->obtener_user->id_user}}" name="owner" id="owner">
+                                
+                                <button data-bs-toggle="tooltip" data-bs-placement="right" title="añadir al carrito" class="btn btn-sm btn-dark text-light"><i class="fas fa-shopping-cart"></i></button>
+                            </form> 
                         </div>
+
+                        {{--  FIN CARRITO DE COMPRAS BOTON  --}}
+
                     </div>
                     <div class="clearfix">
                         <div class="float-start">
@@ -179,10 +221,18 @@
 @endsection
 
 @section('js')
+    <script src="{{asset('js/popper.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        
         function cerrar(){
             $('.toast').hide();
         }
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
     </script>
 @endsection

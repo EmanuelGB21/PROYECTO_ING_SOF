@@ -11,19 +11,24 @@ class PayPalController extends Controller
 {
     
     public function getFacturaMembresia(){ /* CUANDO EL USUARIO PAGA LA MEMBRESÍA */
-
+        date_default_timezone_set('America/Costa_Rica');
+        $fecha_actual = date("Y-m-d"); 
+        
         /* IR A LA BASE DE DATOS Y ACTUALIZAR EL PAGO DE LA MEMEBRESÍA */
         $actualizar_membresia = User::findOrFail(Auth::user()->id_user);
         $actualizar_membresia->membresia = "si";
+        $actualizar_membresia->id_tipo_cuenta = 1;
+        $actualizar_membresia->fecha_renovacion = date('Y-m-d',strtotime($fecha_actual."+ 1 month")); 
         $actualizar_membresia->save();
 
+        $actualizar_ganancia_admin = User::findOrFail(2);
+        $actualizar_ganancia_admin->ganancias=$actualizar_ganancia_admin->ganancias+12.00;
+        $actualizar_ganancia_admin->save();
+
         date_default_timezone_set("America/Costa_Rica");
-
         $email = Auth::user()->email;
-
         $nombre_completo = Auth::user()->nombre.' '.Auth::user()->primer_apellido.' '.
         Auth::user()->segundo_apellido;
-
         /* NOTIFICAR AL USUARIO LA COMPRA QUE HA REALIZADO */
         $datos=[
             
@@ -46,12 +51,5 @@ class PayPalController extends Controller
     return redirect()->back()->with('mensaje','Se ha enviado la factura de compra a tu correo electrónico');
     
 }
-
-
-
-    public function getFacturaCompra(){ /* CUANDO EL USUARIO COMPRA */
-        return "compra generada y guardar en una tabla de factura";
-    }
-
 
 }

@@ -11,7 +11,7 @@
 @endsection
 
 @section('FOTO-DE-PERFIL')
-<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/ADMIN.png')}}" alt=""> <span class="badge bg-danger">Administrador</span></a>
+<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/iconos/logo1.jpeg')}}" alt=""> <span class="badge bg-danger">Administrador</span></a>
 @endsection
 
 @section('DROPDOWN')
@@ -30,7 +30,13 @@
 
 @section('MENU-LATERAL')    
     <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
+    
     <a class="nav-link" href="{{route('home')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
+            Ver Ganancias
+    </a>
+    
+    <a class="nav-link" href="{{route('ver_reportados')}}">
         <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle"></i></div>          
         Arículos reportados
     </a>
@@ -40,20 +46,18 @@
         Gestionar Categorías
     </a>
 
-    <a class="nav-link" href="#">
-        <div class="sb-nav-link-icon"><i class="fas fa-file-pdf"></i></div>
-            Generar Reportes **
-    </a>
-        
-    <a class="nav-link" href="#">
-        <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
-            Ganancias **
-    </a>
-
     <a class="nav-link" href="{{route('MIS_CLIENTES')}}">
         <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
             Mis clientes
     </a>
+
+    <div class="sb-sidenav-menu-heading">Tramitar Facturas</div>
+
+    <a class="nav-link" href="{{route('SECC_FACT')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div>
+            Facturas
+    </a>
+
 @endsection
 
 
@@ -83,46 +87,80 @@
     @endif
     
     {{--  A PARTIR DE ACÁ CONTENIDO  --}}
-    <div class="container mt-5">
-        
-    </div>
+    <div class="container-fluid px-4">    
+        <h4 class="mt-4"><i class="fas fa-coins"></i></h4>
+            <h5 class="mt-3 mb-5">Movimientos de la página web Merca-Lín</h5>
 
-    <div class="container mt-5 p-5">
-       <div class="card">
-        <div class="card-header">
-            <i class="fas fa-table"></i> Tabla de articulos reportados
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white mb-4 shadow">
+                    <div class="card-body">Cantidad de Ventas Realizadas:</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <h2 class="text-white stretched-link">
+                           <i class="fas fa-receipt"></i> {{$total_ventas}}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white mb-4 shadow">
+                    <div class="card-body">Cantidad de Usuarios:</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <h2 class="text-white stretched-link">
+                            <i class="fas fa-users"></i> {{$usuarios->count()}}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white mb-4 shadow">
+                    <div class="card-body">Ganacias de Merca-Lín:</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <h2 class="text-white stretched-link">
+                          <i class="fas fa-chart-line"></i> $  {{Auth::user()->ganancias}}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-secondary text-white mb-4 shadow">
+                    <div class="card-body">Productos disponibles:</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <h2 class="text-white stretched-link">
+                            <i class="fas fa-box"></i> {{$total_publicados}}
+                        </h2>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <table class="table table-striped table-bordered" id="tabla">
-                <thead class="bg-dark text-light text-center">
-                    <tr>
-                        <th>Fecha publicacion</th>
-                        <th>Nombre Articulo</th>
-                        <th>Dueño del articulo</th>
-                        <th>Teléfono</th>
-                        <th>Correo</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($articulos as $item)
-                        <tr>
-                            <td>{{$item->fecha_publicacion_articulo}}</td>
-                            <td>{{$item->nombre_articulo}}</td>
-                            <td>{{$item->obtener_user->nombre}} {{$item->obtener_user->primer_apellido}} {{$item->obtener_user->segundo_apellido}}</td>
-                            <td>{{$item->obtener_user->telefono}}</td>
-                            <td>{{$item->obtener_user->email}}</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Contactar</button>
-                                
-                                <button class="btn btn-danger btn-sm">Estado</button>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-       </div>
+    </div>
+    {{--  OPCIONES DE GENERAR DISTINTOS PDFS   --}}
+
+    <div class="container-fluid mt-5">    
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h5>Generar documentos PDF</h5>
+                </div>
+
+                <div class="card-body shadow">
+                    <div class="container text-center">
+                        <form action="{{route('get_ganacias_pdf')}}" method="POST">
+                            @csrf
+                            @method('GET')
+
+                            <input type="hidden" name="total_publicados" value="{{$total_publicados}}">
+                            <input type="hidden" name="total_ventas" value="{{$total_ventas}}">
+                            <input type="hidden" name="usuarios" value="{{$usuarios}}">
+                            <input type="hidden" name="ganancias" value="{{Auth::user()->ganancias}}">
+                            
+                            <button class="btn btn-danger"><i class="fas fa-download"></i> Generar y descargar PDF</button>
+                        </form>
+                    </div>
+
+                   
+
+                </div>
+            </div>
     </div>
 
 @endsection

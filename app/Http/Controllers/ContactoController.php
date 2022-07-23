@@ -25,6 +25,25 @@ class ContactoController extends Controller
 
         Mail::to($correoDestino)->send($correo);
 
-        return redirect()->back()->with('mensaje','Se ha enviado el correo electrónico con éxito, pronto recibirás respuesta');
+        return redirect()->back()->with('mensaje','enviado');
+    }
+
+    public function index (Request $request)  // ADMIN CONTACTA CLIENTES
+    { 
+        $datos=[
+            
+            'contenido'=>$request->contenido,
+            'estado' =>'contactar',
+        ];
+
+        $correoDestino = $request->email; /* QUIEN RECIBE EL CORREO */
+        $correoRemitente = "mercalinshop@gmail.com"; /* QUIEN LO ESTÁ ENVIANDO */
+
+        $correo = new EnvioMails($datos);
+        $correo->from($correoRemitente);
+
+        Mail::to($correoDestino)->send($correo);
+
+        return redirect()->back()->with('mensaje','enviado');
     }
 }

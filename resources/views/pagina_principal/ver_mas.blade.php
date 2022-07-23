@@ -11,19 +11,28 @@
 
 @section('END')
     <nav class="nav">
-        <a class="nav-link text-light MENU" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-          <i class="fas fa-shopping-cart"></i> Agregar al carrito
-        </a>
+      @if (Auth::guest())
+        <li class="nav-item">
+          <a class="nav-link text-light MENU" href="{{route('home')}}"><i class="fas fa-user-circle"></i> Iniciar Sesión</a>
+        </li>  
+      @else
+      <a class="btn btn-dark text-light position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+        <i class="fas fa-shopping-cart "></i> 
+        <span class="position-absolute top-0 start-98 translate-middle badge rounded-pill bg-danger">
+            {{ \Cart::getTotalQuantity()}}
+        </span>
+      </a>
 
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-              <h5 id="offcanvasRightLabel">Offcanvas right</h5>
-              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-              Carrito de compras
-            </div>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+          <div class="offcanvas-header">
+          <h5 id="offcanvasRightLabel">Tu carrito de compras</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
+          <div class="offcanvas-body">
+              @include('partials.cart-drop')
+          </div>
+      </div>
+      @endif
     </nav>
 @endsection
 
@@ -122,8 +131,11 @@
           <div class="col-md-6">
             <div class="card-body">
               <h5 class="card-title">{{$articulo->nombre_articulo}} | {{$articulo->obtener_categoria->nombre_categoria}}</h5>
-          
-              @if ($articulo->descuento!=0)
+
+              {{--  NUEVO  --}}
+              <div class="clearfix">
+                <div class="float-start">
+                  @if ($articulo->descuento!=0)
                   @php
                       $precio=$articulo->precio;
                       $descuento=$articulo->descuento;
@@ -144,7 +156,44 @@
                   </h6>  
 
               @endif
+                </div>
+                <div class="float-end">
+                  <form action="{{route('cart.store')}}" method="POST">
+                    @csrf
 
+                    <input type="hidden" value="{{ $articulo->id_articulo }}" id="id" name="id">
+                    <input type="hidden" value="{{ $articulo->nombre_articulo }}" id="name" name="name">
+                    
+                    {{--  SI TRAE DESCUENTO APLICARLO SINO NO  --}}
+                    @if ($articulo->descuento!=0)
+                        @php
+                            $precio=$articulo->precio;
+                            $descuento=$articulo->descuento;
+
+                            $operacion=100-$descuento;
+                            $resultado=$precio*($operacion/100);
+                        @endphp
+
+                        <input type="hidden" value="{{ $resultado }}" id="price" name="price">
+                    @else    
+                        <input type="hidden" value="{{ $articulo->precio }}" id="price" name="price"> 
+                    @endif
+                    
+                    {{--  AGARRO UNA IMAGEN PARA ENVIAR DE CADA ATRÍCULO  --}}
+                    @foreach ($articulo->obtener_imagenes as $img=>$VALOR)
+                        @if ($img==0)
+                            <input type="hidden" value="{{ $VALOR->ruta_imagen }}" id="img" name="img">
+                        @endif
+                    @endforeach
+                    <input type="hidden" value="{{ $articulo->obtener_categoria->nombre_categoria }}" id="slug" name="slug">
+                    <input type="hidden" value="1" id="quantity" name="quantity">
+                    <input type="hidden" value="{{$articulo->obtener_user->id_user}}" name="owner" id="owner">
+                    
+                    <button data-bs-toggle="tooltip" data-bs-placement="right" title="añadir al carrito" class="btn btn-sm btn-dark text-light"><i class="fas fa-shopping-cart"></i></button>
+                </form> 
+                </div>
+              </div>
+              {{--  NUEVO  --}}
 
               <p class="mt-5"><b><u>Descripción:</u></b></p>
 
@@ -166,8 +215,25 @@
         </div>
       </div>
 
-    </div> <!-- FIN DATOS DEL ARTÍCULO -->
 
+      {{--  GALERIA DE FOTOS  --}}
+
+      <div class="container gallery-container mt-2 mb-5" id="tamaño_reportar_y_detalles_articulos">
+        <h2>Fotografías</h2>
+        <div class="tz-gallery">
+          <div class="row">
+            @foreach ($articulo->obtener_imagenes as $img)
+              <div class="col-lg-2 mb-4">
+                <a class="lightbox" href="#!" data-bs-toggle="modal" data-bs-target="#my_modal{{$loop->index}}">
+                  <img class="w-100 mb-4 rounded" src="{{asset('storage'.'/'.$img->ruta_imagen)}}">
+                </a>
+              </div>
+            @endforeach
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- FIN DATOS DEL ARTÍCULO -->
 
     <div class="float-end">
       <!-- DATOS DEL PROPIETARIO -->
@@ -199,20 +265,7 @@
     </div> <!-- FIN DATOS DEL PROPIETARIO -->
   </div>
 
-  <div class="container gallery-container">
-    <h2>Fotografías</h2>
-    <div class="tz-gallery">
-      <div class="row m-5">
-        @foreach ($articulo->obtener_imagenes as $img)
-          <div class="col-lg-4 mb-4">
-            <a class="lightbox" href="#!" data-bs-toggle="modal" data-bs-target="#my_modal{{$loop->index}}">
-              <img class="w-100 mb-4 rounded" src="{{asset('storage'.'/'.$img->ruta_imagen)}}">
-            </a>
-          </div>
-        @endforeach
-      </div>
-    </div>
-  </div>
+  
   <br><br>
 
   {{--  MODAL DE LAS FOTOS  --}}
@@ -238,6 +291,12 @@
 @endsection
 
 @section('js')
-  <script src="{{asset('js/bootstrap.min.js')}}"></script>
   <script src="{{asset('js/popper.min.js')}}"></script>
+  <script src="{{asset('js/bootstrap.min.js')}}"></script>
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  </script>
 @endsection

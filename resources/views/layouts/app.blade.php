@@ -64,15 +64,22 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->nombre_user }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                
+                                    <a class="dropdown-item" onClick="history.go(-1);">
+
+                                        <i class="fas fa-sign-out-alt"></i>{{ __('Volver') }}
+                                    </a>
+
+                                
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="fas fa-sign-out-alt"></i>{{ __('Cerrar Sesión') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -99,11 +106,11 @@
         </main>
     </div>
 
-    <div class="container-fluid text-center">
-        <div class="container p-2 mt-1">
-            <p class="text-light">@Derechos Reservados 2022, Merca-Lín</p>
-        </div>
+    <div class="text-center">
+        <p class="text-light">@Derechos Reservados 2022, Merca-Lín</p>
     </div>
+
+
 
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>

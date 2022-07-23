@@ -48,6 +48,18 @@
     <div class="sb-nav-link-icon"><i class="fas fa-eye"></i></div>
         Ver Artículos
     </a>
+
+    <div class="sb-sidenav-menu-heading">Sección de entregas y compras</div>
+    <a class="nav-link" href="{{route('ENTREGAS')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-handshake"></i></div>
+        Entregas
+    </a>
+  
+    <a class="nav-link" href="{{route('MIS_COMPRAS')}}">
+    <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
+        Mis compras
+    </a>
+    
 @endsection
 
 
@@ -83,7 +95,7 @@
                     @csrf
                     @method('PUT')
         
-                        <div class="card FORM_REG_ART">
+                        <div class="card FORM_REG_ART shadow">
         
                             <div class="card-header text-center bg-dark text-light">
                                 <h6 class="mt-1"><i class="fas fa-clipboard"></i> Formulario de Actualización de Artículos</h6>
@@ -158,7 +170,7 @@
             </div>
 
             <div class="col-sm-5">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header bg-dark text-light">
                         <h6 class="mt-1"><i class="fas fa-images"></i> Imágenes</h6>
                     </div>
@@ -178,12 +190,10 @@
                         
                         <div class="row row-cols-1 row-cols-md-3 g-4">
                             @foreach ($articulo->obtener_imagenes as $img)
-                                <div class="col"> 
-                                    <div class="card-img-top">  
+                                <div class="col-xl-3 px-1"> 
                                         <button style="position: absolute;" data-bs-toggle="modal" data-bs-target="#img{{$img->id_imagen}}" class="btn btn-sm btn-danger rounded-circle"><i class="fas fa-times"></i></button>
                                         @include('alertas.elim_img')
                                         <img class="img-fluid" src="{{asset('storage').'/'.$img->ruta_imagen}}" alt="">
-                                    </div>
                                 </div>
                             @endforeach
                         </div>

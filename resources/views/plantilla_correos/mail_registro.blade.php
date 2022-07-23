@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
         <title>Document</title>
     </head>
     <body>
@@ -32,13 +33,19 @@
         <p>{{$mensaje['contenido']}}</p>
         <p>{{$mensaje['contenido_2']}}</p>
         <p>La compra fue realizada el {{$mensaje['fecha_de_pago_inicial']}}</p>
-        <p>*<b>Recuerda que la memebresía se renueva cada mes por el mismo monto</b></p>
+        <p>*<b>Recuerda que la membresía la tienes que renovar cada mes por el mismo monto</b></p>
         
         @endif
 
         @if ($mensaje['estado']=="contactar")
             <p>{{$mensaje['contenido']}}</p>  
         @endif
+
+        @if ($mensaje['estado']=="compra_articulos")
+
+        <p>{{$mensaje['contenido']}}</p>  
+        <p>Gracias por utlizar nuestro servicios</p>
+    @endif
     
         
     </body>

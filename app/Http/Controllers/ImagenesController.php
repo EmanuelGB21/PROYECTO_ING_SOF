@@ -36,6 +36,9 @@ class ImagenesController extends Controller
      */
     public function store(Request $request)
     {
+
+        if(Imagen::where('id_articulo', $request->id_articulo)->count()<4){
+
             $imagen_nueva = $request->file('ruta_imagen')->store('IMAGENES_SUBIDAS','public');
 
             /* A LA BASE DE DATOS */
@@ -43,11 +46,17 @@ class ImagenesController extends Controller
 
             $imagen->ruta_imagen = $imagen_nueva;
             $imagen->id_articulo = $request->id_articulo;
-    
-            $imagen->save();   
+
+            $imagen->save();  
 
             return redirect()->back()->with('mensaje','Se ha agregado la imagen correctamente');
-         }
+        
+        }else{
+
+            return redirect()->back()->with('mensaje','Se llegó al límite de imagenes, no puedes insertar más');    
+        }
+
+    }
 
     /**
      * Display the specified resource.

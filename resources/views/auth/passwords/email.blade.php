@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password olvidaste contraseña') }}</div>
+            <div class="card" style="background-color: rgba(47, 46, 46, 0.358)">
+                <div class="card-header bg-dark text-light">{{ __('Restablecer la contraseña') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -18,7 +18,7 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Correo') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-light text-md-end">{{ __('Correo') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -34,7 +34,7 @@
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
+                                   <i class="fas fa-envelope"></i> {{ __('Enviar enlace') }}
                                 </button>
                             </div>
                         </div>

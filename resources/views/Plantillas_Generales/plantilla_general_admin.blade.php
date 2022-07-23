@@ -29,9 +29,8 @@
                 class="fas fa-bars"></i></button>
 
         <!-- IR A LA PÁGINA-->
-       {{--   @yield('BUSQUEDAS')  --}}
         <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <a target="__blank" href="{{route('pagina_principal')}}" class="btn btn-primary btn-sm">Visitar Sitio <i class="fas fa-arrow-right"></i></a>
+            <a href="{{route('pagina_principal')}}" class="btn btn-primary btn-sm">Visitar Sitio <i class="fas fa-arrow-right"></i></a>
         </div>
 
         <!-- Navbar-->

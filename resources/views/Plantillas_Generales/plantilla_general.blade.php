@@ -20,6 +20,8 @@
 </head>
 
 <body>
+
+  <div class="sticky-top">
     {{--  PANEL LOGO Y BUSCADOR  --}}
   <div class="container-fluid panel_inicial p-2">
 
@@ -38,19 +40,18 @@
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon text-light"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-          </ul>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+         
           <form class="d-flex" method="POST" action="{{route('buscar',['id' => '0', 'tipo_busqueda' => 'CT'])}}">
             @csrf
             @method('GET')
             <input class="form-control me-2" name="campo_busqueda" type="search" placeholder="Buscar" aria-label="Search">
-            
             <button class="btn btn-success" type="submit"><i class="fas fa-search"></i></button>
           </form>
+        
         </div>
       </div>
     </nav>
@@ -72,6 +73,7 @@
     </div>
   </div>
 
+</div>
 
   {{--  CONTENIDO DE LA PÁGINA (ARTICULOS) --}}
   @yield('MENSAJE')
@@ -82,8 +84,9 @@
 
   </div>
 
-  <script src="{{asset('js/popper.min.js')}}"></script>
-  <script src="{{asset('js/bootstrap.min.js')}}"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   
   @yield('js')
 </body>

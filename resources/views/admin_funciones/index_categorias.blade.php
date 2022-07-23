@@ -11,7 +11,7 @@
 @endsection
 
 @section('FOTO-DE-PERFIL')
-<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/ADMIN.png')}}" alt=""> <span class="badge bg-danger">Administrador</span></a>
+<a class="navbar-brand ps-1" href="{{route ('home')}}"> <img class="rounded-circle w-25 p-2" src="{{asset('imagenes/iconos/logo1.jpeg')}}" alt=""> <span class="badge bg-danger">Administrador</span></a>
 @endsection
 
 @section('DROPDOWN')
@@ -32,8 +32,12 @@
     <div class="sb-sidenav-menu-heading">¿Qué deseas realizar?</div>
 
     <a class="nav-link" href="{{route('home')}}">
-        <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle"></i></div>
-                                      
+        <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
+            Ver Ganancias
+    </a>
+    
+    <a class="nav-link" href="{{route('ver_reportados')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle"></i></div>          
         Arículos reportados
     </a>
 
@@ -42,20 +46,18 @@
         Gestionar Categorías
     </a>
 
-    <a class="nav-link" href="#">
-        <div class="sb-nav-link-icon"><i class="fas fa-file-pdf"></i></div>
-            Generar Reportes **
-    </a>
-        
-    <a class="nav-link" href="#">
-        <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
-            Ganancias **
-    </a>
-
     <a class="nav-link" href="{{route('MIS_CLIENTES')}}">
         <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
             Mis clientes
     </a>
+
+    <div class="sb-sidenav-menu-heading">Tramitar Facturas</div>
+
+    <a class="nav-link" href="{{route('SECC_FACT')}}">
+        <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div>
+            Facturas
+    </a>
+    
 @endsection
 
 
@@ -88,7 +90,7 @@
 
         <button data-bs-toggle="modal" data-bs-target="#agregar_categorias" class="btn btn-primary">+ Nueva Categoría</button>
         @include('modales.modal_agregar_categoria')
-        <div class="card mt-4">
+        <div class="card mt-4 shadow">
             <div class="card-header">
                 <i class="fas fa-table"></i> Tabla Categorías
             </div>

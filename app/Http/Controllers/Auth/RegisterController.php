@@ -54,7 +54,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'id_tipo_cuenta' =>['int','max:1'],
+            'id_tipo_cuenta' =>['int','max:3'],
             'nombre_user' =>['string','max:50','unique:users'],
             'nombre' => ['required', 'string', 'max:255'],
             'primer_apellido' => ['required', 'string', 'max:255'],
@@ -114,6 +114,7 @@ class RegisterController extends Controller
             'estado_cuenta' =>$data['estado_cuenta'],
             'password' => Hash::make($contra_temporal),
             'membresia' => $data['membresia'],
+            'ganancias' => 0,
         ]);
 
     }

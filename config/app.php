@@ -177,6 +177,10 @@ return [
 
         /* PARA GENERAR PDF */
         \Barryvdh\DomPDF\ServiceProvider::class,
+        
+        /* PARA EL CARRITO DE COMPRAS */
+        \Darryldecode\Cart\CartServiceProvider::class,
+
     ],
 
     /*
@@ -232,6 +236,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => \Barryvdh\DomPDF\Facade\Pdf::class,
+        'Cart' => \Darryldecode\Cart\Facades\CartFacade::class,
+
     ],
 
 ];

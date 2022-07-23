@@ -12,28 +12,15 @@
       <link rel="stylesheet" href="{{asset('css/style.css')}}">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
+
+      <!-- Libraries Stylesheet -->
+      <link href="{{asset('lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+      <link href="{{asset('lib/lightbox/css/lightbox.min.css')}}" rel="stylesheet">
+      
     </head>
   <body>
-
-    @if (session('mensaje'))
-    <div aria-live="polite" aria-atomic="true" class="position-relative" data-bs-delay="100">         
-        <div class="toast-container position-absolute top-0 end-0 p-3" style="z-index:11">
-            <div class="toast show" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
-            
-                <div class="toast-header">
-                <strong class="me-auto"><i class="fas fa-info-circle text-primary"></i> Notificación</strong>
-                <small class="text-muted">justo ahora</small>
-                <button type="button" onclick="cerrar()" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                <p class="text-success"><i class="fas fa-check-circle text-success"></i> {{session('mensaje')}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-     @endif
      
-    <div class="container-fluid panel_seccundario p-2 fijado">
+    <div class="container-fluid panel_seccundario p-2 sticky-top">
       <div class="clearfix">
         <div class="float-start">
             <nav class="navbar navbar-light">
@@ -54,14 +41,29 @@
             </nav>
         </div>
         <div class="float-end mt-2">
-            <nav class="nav p-2 MI_NAV">
-              <a class="nav-link text-light boton" href="{{route('pagina_principal')}}">Visitar Sitio <i class="fas fa-arrow-right"></i></a>
-            </nav>
+      
+            <ul class="ul nav mt-2 justify-content-end">
+              <li class="nav-item MI_NAV estas">
+                <a class="nav-link text-light" aria-current="page" href="#/INICIO">Inicio</a>
+              </li>
+              <li class="nav-item MI_NAV">
+                <a class="nav-link text-light" aria-current="page" href="#/NOSOTROS">Nosotros</a>
+              </li>
+              <li class="nav-item MI_NAV">
+                <a class="nav-link text-light" href="#/POLITICAS-DE-PRIVACIDAD">Políticas</a>
+              </li>
+              <li class="nav-item MI_NAV">
+                <a class="nav-link text-light" href="#/CONTACTANOS">Contáctanos</a>
+              </li>
+              <li class="nav-item MI_NAV">
+                <a class="nav-link text-light boton" href="{{route('pagina_principal')}}">Visitar Sitio <i class="fas fa-arrow-right"></i></a>
+              </li>
+            </ul>
         </div>
       </div>
     </div>
         {{--  CARROUSEL  --}}
-    <div class="container-fluid px-0">
+    <div class="container-fluid px-0" id="/INICIO">
 
       <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -97,7 +99,56 @@
       </div>
     </div>
 
-    <div class="container mt-5 p-4">
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h3 class="mb-4">Sitio web:</h3>
+            </div>
+            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+                
+                <div class="testimonial-item text-center px-2">
+                    <div class="testimonial-img position-relative">
+                        <img class="img-fluid mx-auto mb-3" src="{{asset('img/testimonial-1.jpg')}}">
+                    </div>
+                    <div class="testimonial-text text-center rounded p-4">
+                        <h5>Vista de artículos</h5>
+                    </div>
+                </div>
+
+                <div class="testimonial-item text-center px-2">
+                  <div class="testimonial-img position-relative">
+                      <img class="img-fluid mx-auto mb-3" src="{{asset('img/testimonial-1.jpg')}}">
+                  </div>
+                  <div class="testimonial-text text-center rounded p-4">
+                      <h5>Login</h5>
+                  </div>
+                </div>
+
+              <div class="testimonial-item text-center px-2">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid mx-auto mb-3" src="{{asset('img/testimonial-1.jpg')}}">
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <h5>Registro</h5>
+                </div>
+              </div>   
+               
+              <div class="testimonial-item text-center px-2">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid mx-auto mb-3" src="{{asset('img/testimonial-1.jpg')}}">
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <h5>Panel de usuario</h5>
+                </div>
+              </div> 
+
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+
+    <div class="container p-4" id="/NOSOTROS">
      <div class="row">
       <div class="col-sm-4">
         <h3>¿Quienes somos?</h3>
@@ -167,7 +218,7 @@
 
     </div>
 
-    <div class="container p-5 mt-4">
+    <div class="container p-5 mt-4" id="/POLITICAS-DE-PRIVACIDAD">
       <div class="container mb-5 text-center">
         <h3>Políticas de privacidad importantes:</h3>
       </div>
@@ -177,45 +228,46 @@
         <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Los datos que se solicitan al registrarse solo serán usados para términos de login.</p>
         <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> La dirección de correo electrónico es para hacer la entrega de los artículos sin necesidad de que los recojas presencialmente.</p>
         <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> La información dada por cada usuario quedará entre Merca-Lín y él.</p>
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Tú información solo la podrá ver la empresa, ningún otro cliente, a menos que sea la dirección de entrega de los artículos que compres.</p>
         <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Somos una empresa que se toma con seriedad las cosas.</p>
         <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Solo se permiten pagos mediante PayPal.</p>
         <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Tener en cuenta que trabajamos con dólares.</p>
         <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> Nos tomamos muy enserio cualquier tipo de estafas.</p>
-        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> El dinero por ventas de tus artículos será intocable por parte de Merca-Lín, es decir solo para tí</p>
+        <p><i style="font-size:23px" class="text-primary fas fa-info-circle"></i> El dinero por ventas de tus artículos será intocable por parte de Merca-Lín, es decir del dinero que ganes no se quitará nada</p>
         
       </div>
     </div>
 
     {{--  formulario de contacto  --}}
-    <div class="container-fluid p-5 mt-4">
+    <div class="container-fluid p-5 mt-4" id="/CONTACTANOS">
 
       <div class="card">
         <div class="card-header text-center bg-white">
           <h3><i class="fas fa-envelope"></i> Contáctanos</h3>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col-sm-6">
             <div class="container text-center mt-4">
               <img class="w-50" src="{{asset('imagenes/iconos/logo6.jpeg')}}" alt="">
             </div>
           </div>
 
-          <div class="col">
+          <div class="col-sm-6">
             <div class="container mt-5 mb-3">
               <form action="{{url('contacto-pagina')}}" method="POST">
                 @csrf
   
                 <div class="mb-3">
                   <label for="exampleFormControlInput1" class="form-label">Ingresa tu correo electrónico:</label>
-                  <input type="email" class="form-control" name="email" placeholder="@gmail.com">
+                  <input style="border-radius: 20px;" required type="email" class="form-control" name="email" placeholder="@gmail.com">
                 </div>
                 <div class="mb-3">
                   <label for="exampleFormControlTextarea1" class="form-label">Asunto:</label>
-                  <textarea class="form-control" name="contenido" placeholder="Ingresa tu duda o sugerencia acá" rows="5"></textarea>
+                  <textarea style="border-radius: 20px;" required class="form-control" name="contenido" placeholder="Ingresa tu duda o sugerencia acá" rows="5"></textarea>
                 </div>
   
                 <div class="text-center mt-3 mb-3">
-                  <button class="btn btn-primary rounded-pill">Enviar</button>
+                  <button class="btn btn-primary rounded-pill btn-lg"><i class="fas fa-envelope"></i> Enviar</button>
                 </div>
 
               </form>
@@ -257,13 +309,67 @@
     <!-- Grid container -->
     <!-- Copyright -->
     <div class="text-center text-light bg-dark">
-      <p class="text-light p-2">@ Copyright 2022 Merca-Lín <a href="#!">politicas de privacidad</a></p>
+      <p class="text-light p-2">@ Copyright 2022 Merca-Lín <a href="#/POLITICAS-DE-PRIVACIDAD">politicas de privacidad</a></p>
     </div>
     <!-- Copyright -->
   </footer>
 
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+
+    <script src="{{asset('lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('lib/lightbox/js/lightbox.min.js')}}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
+
+    <script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
+    <script>
+
+      @if(session('mensaje'))
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Mensaje enviado con éxito',
+        showConfirmButton: false,
+        timer: 3000
+      })
+      @endif
+
+      // DEJAR MARCADO CUANDO SELECCIONO DEL MENU
+      $(".ul").find("li").click(function(){
+        $(".ul li").removeClass('estas')
+        $(this).addClass('estas')
+      })
+
+       // Testimonials carousel
+      $(".testimonial-carousel").owlCarousel({
+          autoplay: true,
+          smartSpeed: 1000,
+          center: true,
+          dots: false,
+          loop: true,
+          nav : true,
+          navText : [
+              '<i class="fas fa-arrow-left"></i>',
+              '<i class="fas fa-arrow-right"></i>'
+          ],
+          responsive: {
+              0:{
+                  items:1
+              },
+              768:{
+                  items:2
+              }
+          }
+      });
+
+    </script>
+
   </body>
 </html>
