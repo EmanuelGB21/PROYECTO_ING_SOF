@@ -4,7 +4,7 @@
     
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
     {{--  PARA PAYPAL  --}}
-    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AdvdZJU9Em6o3frzXiO13CQmP7EQL0ycsdEBqJ18IWJf-KuXjDLxr5aXaAi8cmIfyo69Lu6I_froOYs9&currency=USD"></script>
 @endsection
 
 @section('FOTO-DE-PERFIL')

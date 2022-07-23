@@ -7,7 +7,7 @@
     <link rel="icon" href="{{asset('imagenes/iconos/icono_pagina.ico')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AdvdZJU9Em6o3frzXiO13CQmP7EQL0ycsdEBqJ18IWJf-KuXjDLxr5aXaAi8cmIfyo69Lu6I_froOYs9&currency=USD"></script>
     <title>Merca-Lín</title>
 </head>
 <body>
