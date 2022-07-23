@@ -249,7 +249,7 @@
             
 
             <div class="container-fluid mt-3">
-              <a style="font-size: 15px" href="">Ver más articulos del dueño</a>
+              <a style="font-size: 15px" href="{{route('MAS_ARTICULOS_CLIENTE', $articulo->obtener_user->id_user)}}">Ver más articulos del dueño</a>
             </div>
           
         </div>

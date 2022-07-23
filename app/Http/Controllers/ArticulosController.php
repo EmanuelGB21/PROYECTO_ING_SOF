@@ -322,5 +322,24 @@ class ArticulosController extends Controller
             ->get();
         return view('admin_funciones.index_reportados',compact('articulos')); 
     }
+
+
+    /* VER MÁS ARTICULOS DE X CLIENTE */
+
+    public function getMasArticulosCliente($id){
+        
+        $categorias = Categoria::all();
+    
+         $articulos = Articulo::with('obtener_imagenes')
+         ->with('obtener_categoria')
+         ->with('obtener_estado_articulo')
+         ->where('reportado','0')
+         ->where('disponibilidad','1')
+         ->where('cantidad','!=',0)
+         ->where('id_user',$id)
+         ->paginate(9);
+        
+         return view('pagina_principal.index', compact(['categorias','articulos']));
+    }
     
 }

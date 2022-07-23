@@ -9,9 +9,14 @@ use App\Http\Controllers\FacturasController;
 use App\Http\Controllers\ImagenesController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\UsersController;
+/* use Illuminate\Support\Facades\Artisan; */
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+/* Route::get('storage-link', function () {
+    Artisan::call('storage:link');
+}); */
 
 
 /* RUTAS DE LA PÁGINA WEB */
@@ -44,6 +49,10 @@ Route::get('Lista-articulos', 'App\Http\Controllers\ArticulosController@lista_ar
 Route::get('/descuentos', [ArticulosController::class, 'descuentos'])->name('descuentos');
 
 Route::get('/busquedas/{id}/{tipo_busqueda}', [ArticulosController::class, 'busquedas'])->name('buscar');
+
+
+Route::get('/Mas-Artículos-Cliente/{id}', [ArticulosController::class, 'getMasArticulosCliente'])->name('MAS_ARTICULOS_CLIENTE');
+
 
 /* CONTROLADOR DE CATEGORIAS */
 
