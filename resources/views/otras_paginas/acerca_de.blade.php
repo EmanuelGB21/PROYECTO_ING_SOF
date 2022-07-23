@@ -109,7 +109,7 @@
                 
                 <div class="testimonial-item text-center px-2">
                     <div class="testimonial-img position-relative">
-                        <img class="img-fluid mx-auto mb-3" src="{{asset('img/testimonial-1.jpg')}}">
+                        <img class="img-fluid mx-auto mb-3" src="{{asset('img/1.png')}}">
                     </div>
                     <div class="testimonial-text text-center rounded p-4">
                         <h5>Vista de artículos</h5>
@@ -118,28 +118,55 @@
 
                 <div class="testimonial-item text-center px-2">
                   <div class="testimonial-img position-relative">
-                      <img class="img-fluid mx-auto mb-3" src="{{asset('img/testimonial-1.jpg')}}">
+                      <img class="img-fluid mx-auto mb-3" src="{{asset('img/7.png')}}">
                   </div>
                   <div class="testimonial-text text-center rounded p-4">
-                      <h5>Login</h5>
+                      <h5>Carrito Compras</h5>
                   </div>
                 </div>
 
               <div class="testimonial-item text-center px-2">
                 <div class="testimonial-img position-relative">
-                    <img class="img-fluid mx-auto mb-3" src="{{asset('img/testimonial-1.jpg')}}">
+                    <img class="img-fluid mx-auto mb-3" src="{{asset('img/6.png')}}">
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <h5>Login</h5>
+                </div>
+              </div>   
+
+              <div class="testimonial-item text-center px-2">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid mx-auto mb-3" src="{{asset('img/5.png')}}">
                 </div>
                 <div class="testimonial-text text-center rounded p-4">
                     <h5>Registro</h5>
                 </div>
-              </div>   
+              </div> 
                
               <div class="testimonial-item text-center px-2">
                 <div class="testimonial-img position-relative">
-                    <img class="img-fluid mx-auto mb-3" src="{{asset('img/testimonial-1.jpg')}}">
+                    <img class="img-fluid mx-auto mb-3" src="{{asset('img/4.png')}}">
                 </div>
                 <div class="testimonial-text text-center rounded p-4">
-                    <h5>Panel de usuario</h5>
+                    <h5>Sección Vendedor</h5>
+                </div>
+              </div> 
+
+              <div class="testimonial-item text-center px-2">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid mx-auto mb-3" src="{{asset('img/3.png')}}">
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <h5>Sección Comprador</h5>
+                </div>
+              </div> 
+
+              <div class="testimonial-item text-center px-2">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid mx-auto mb-3" src="{{asset('img/2.png')}}">
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <h5>Sección Admin</h5>
                 </div>
               </div> 
 
